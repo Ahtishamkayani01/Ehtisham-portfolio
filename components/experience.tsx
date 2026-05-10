@@ -10,7 +10,7 @@ const experiences = [
     title: "Lead Frontend Developer",
     company: "Alpha Squad",
     location: "Islamabad, Pakistan",
-    period: "Feb 2022 — Present",
+    period: "Feb 2022 — May 2026",
     description: [
       "Led a team of front-end developers, providing mentorship, task assignments, and daily progress tracking to ensure timely project delivery",
       "Spearheaded the development of reusable UI components, improving code maintainability by 35%",
@@ -36,19 +36,12 @@ const experiences = [
 ]
 
 const projects = [
-  { name: "E-Z Oil Drain Valve", url: "https://ezoildrainvalve.com/" },
+  { name: "EZ Oil Drain Valve", url: "https://ezoildrainvalve.com/" },
   { name: "Prestige Mustang", url: "https://prestigemustang.com/" },
   { name: "MonkeyTilt", url: "https://monkeytilt.com/" },
   { name: "Plump", url: "https://plump.com/" },
   { name: "Foose Performance", url: "https://fooseperf.com/" },
   { name: "Jess Performance", url: "https://jessperformance.com/" },
-  { name: "Candle Chart", url: "https://candlechart.vercel.app/" },
-  { name: "3D T-Shirt Customizer", url: "https://3-d-tshirt-customizer-eight.vercel.app/" },
-  { name: "Voice Recorder", url: "https://voice-recorder-demo.vercel.app/" },
-  { name: "Puzzle App", url: "https://puzzle-app-eight.vercel.app/" },
-  { name: "Magma Demo", url: "https://magma-demo.vercel.app/" },
-  { name: "Webshop Manager", url: "https://webshop-manager.vercel.app/" },
-  { name: "Personal Portfolio", url: "https://ahtishamkayani-peach.vercel.app/" },
 ]
 
 export function Experience() {

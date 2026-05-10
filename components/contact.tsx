@@ -3,7 +3,7 @@
 import { motion } from "framer-motion"
 import { useInView } from "framer-motion"
 import { useRef } from "react"
-import { Mail, Phone, MapPin, Send } from "lucide-react"
+import { Mail, Phone, MapPin } from "lucide-react"
 
 export function Contact() {
   const ref = useRef(null)
@@ -37,8 +37,8 @@ export function Contact() {
             </div>
             <div className="flex items-center gap-2 text-muted-foreground">
               <Phone className="w-4 h-4 text-primary" />
-              <a href="tel:+923165416947" className="hover:text-primary transition-colors">
-                +92 316 5416947
+              <a href="tel:+923035957991" className="hover:text-primary transition-colors">
+                +92 303 5957991
               </a>
             </div>
             <div className="flex items-center gap-2 text-muted-foreground">
@@ -47,13 +47,7 @@ export function Contact() {
             </div>
           </div>
 
-          <a
-            href="mailto:ahtishamkayani01@gmail.com"
-            className="inline-flex items-center gap-2 px-8 py-4 bg-transparent border-2 border-primary text-primary rounded-lg font-medium hover:bg-primary/10 transition-all"
-          >
-            <Send className="w-4 h-4" />
-            Say Hello
-          </a>
+
         </motion.div>
       </div>
     </section>

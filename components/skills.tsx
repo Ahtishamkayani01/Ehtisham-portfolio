@@ -10,6 +10,10 @@ const skillCategories = [
     skills: ["JavaScript (ES6+)", "TypeScript", "HTML5", "CSS3", "Sass"],
   },
   {
+    title: "Also Familiar With",
+    skills: ["Node.js", "Go (Golang)"],
+  },
+  {
     title: "Frameworks & Libraries",
     skills: [
       "React.js",

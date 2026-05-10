@@ -39,7 +39,7 @@ export function Hero() {
               transition={{ delay: 0.4 }}
               className="text-xl md:text-2xl text-primary font-medium mb-6"
             >
-              Lead Frontend Developer
+              Senior Frontend Developer
             </motion.h2>
 
             <motion.p
@@ -77,7 +77,7 @@ export function Hero() {
                 <Mail className="w-5 h-5" />
               </a>
               <a
-                href="tel:+923165416947"
+                href="tel:+923035957991"
                 className="p-3 rounded-lg bg-secondary hover:bg-secondary/80 text-muted-foreground hover:text-foreground transition-all"
                 aria-label="Phone"
               >

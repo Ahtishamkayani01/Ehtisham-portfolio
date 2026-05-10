@@ -10,28 +10,28 @@ const featuredProjects = [
     title: "EZ Oil Drain Valve",
     description:
       "Full-featured e-commerce platform selling oil drain valves for cars, trucks, motorcycles, and industrial equipment. Built with Next.js SSR for optimal SEO, integrated Saleor-based APIs for product catalog and order management, and optimized image delivery via AWS CloudFront.",
-    tech: ["Next.js", "React", "Redux Toolkit", "TailwindCSS", "AWS CloudFront"],
+    tech: ["Next.js", "React", "Redux Toolkit", "TailwindCSS", "AWS CloudFront","GraphQL","Saleor"],
     external: "https://ezoildrainvalve.com/",
   },
   {
     title: "Prestige Mustang",
     description:
       "Premium automotive parts e-commerce platform for Mustang enthusiasts with over 30 years of brand heritage. Features advanced product filtering, search, SSR optimization for Core Web Vitals, and integrated social media and newsletter flows.",
-    tech: ["Next.js", "React", "TailwindCSS", "REST APIs"],
+    tech: ["Next.js", "React", "TailwindCSS", "GraphQL","Saleor"],
     external: "https://prestigemustang.com/",
   },
   {
     title: "MonkeyTilt",
     description:
       "Full-featured online gaming platform. Led the entire project lifecycle from architecture to deployment. Implemented custom Next.js middleware, Google Firebase for auth and real-time database, and Redux for global state management with SSR for scalability.",
-    tech: ["Next.js", "TypeScript", "Firebase", "Redux", "WebSocket"],
+    tech: ["Next.js", "TypeScript", "Rest APIs", "Redux", "WebSocket"],
     external: "https://monkeytilt.com/",
   },
   {
     title: "Plump",
     description:
       "Modern web platform with a focus on clean, responsive UI. Built a reusable component library for design consistency, integrated RESTful APIs for dynamic content, and ensured cross-browser compatibility and mobile-first responsiveness throughout.",
-    tech: ["React", "Next.js", "Redux", "TailwindCSS", "REST APIs"],
+    tech: ["React", "Next.js", "Redux", "TailwindCSS", "REST APIs","WebSocket"],
     external: "https://plump.com/",
   },
 ]
@@ -41,14 +41,14 @@ const moreProjects = [
     title: "Foose Performance",
     description:
       "Full-service diesel truck repair shop and parts store. Built product catalog for Cummins, Duramax, and Powerstroke upgrades with dynamic search, filtering, and performance-optimized frontend using code splitting and lazy loading.",
-    tech: ["Next.js", "TailwindCSS", "REST APIs"],
+    tech: ["Next.js", "TailwindCSS", "GraphQL","Saleor"],
     external: "https://fooseperf.com/",
   },
   {
     title: "Jess Performance",
     description:
       "E-commerce platform for diesel truck performance parts and repair services. Features power package configurator, parts browsing, and seamless cart and checkout experience with Redux Toolkit state management.",
-    tech: ["Next.js", "TailwindCSS", "Redux Toolkit"],
+    tech: ["Next.js", "TailwindCSS", "Redux Toolkit","GraphQL","Saleor"],
     external: "https://jessperformance.com/",
   },
 ]

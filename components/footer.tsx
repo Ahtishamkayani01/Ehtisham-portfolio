@@ -8,7 +8,7 @@ export function Footer() {
       <div className="max-w-6xl mx-auto">
         <div className="flex flex-col md:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-4">
-            <a
+            {/* <a
               href="https://github.com/ahtishamkayani01"
               target="_blank"
               rel="noopener noreferrer"
@@ -16,7 +16,7 @@ export function Footer() {
               aria-label="GitHub"
             >
               <Github className="w-5 h-5" />
-            </a>
+            </a> */}
             <a
               href="https://www.linkedin.com/in/ehtisham-nawaz-kiyani-704a98173/"
               target="_blank"

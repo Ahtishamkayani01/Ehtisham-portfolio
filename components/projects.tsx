@@ -3,7 +3,7 @@
 import { motion } from "framer-motion"
 import { useInView } from "framer-motion"
 import { useRef } from "react"
-import { ExternalLink, Folder } from "lucide-react"
+import { ExternalLink, Folder, Github, Lock, User, ShieldCheck } from "lucide-react"
 
 const featuredProjects = [
   {
@@ -50,6 +50,22 @@ const moreProjects = [
       "E-commerce platform for diesel truck performance parts and repair services. Features power package configurator, parts browsing, and seamless cart and checkout experience with Redux Toolkit state management.",
     tech: ["Next.js", "TailwindCSS", "Redux Toolkit","GraphQL","Saleor"],
     external: "https://jessperformance.com/",
+  },
+]
+
+const personalProjects = [
+  {
+    title: "MERN Stack Authentication & Admin Dashboard",
+    description:
+      "A full-stack production-ready web application built with the MERN stack (MongoDB, Express.js, React, Node.js) featuring secure JWT-based authentication, role-based access control, and a full admin dashboard. Passwords are hashed with bcrypt, and stateless JWT authentication ensures no server-side session storage. Admins can view all registered users and contact form submissions with delete capabilities.",
+    tech: ["MongoDB", "Express.js", "React", "Node.js", "JWT", "bcrypt", "TailwindCSS"],
+    external: "https://mern-project-beta-six.vercel.app",
+    github: "https://github.com/Ahtishamkayani01/MERN-Project",
+    highlights: [
+      { icon: Lock, label: "JWT Auth" },
+      { icon: ShieldCheck, label: "Role-based Access" },
+      { icon: User, label: "Admin Dashboard" },
+    ],
   },
 ]
 
@@ -114,7 +130,7 @@ export function Projects() {
           {/* More Projects */}
           <h3 className="text-xl font-bold text-foreground mb-2">More Projects</h3>
           <p className="text-muted-foreground text-sm mb-8">Additional client projects delivered at Alpha Squad</p>
-          <div className="grid md:grid-cols-2 gap-6">
+          <div className="grid md:grid-cols-2 gap-6 mb-16">
             {moreProjects.map((project, index) => (
               <motion.div
                 key={project.title}
@@ -152,6 +168,87 @@ export function Projects() {
               </motion.div>
             ))}
           </div>
+
+          {/* Personal Projects */}
+          <div className="flex items-center gap-4 mb-8">
+            <h3 className="text-xl font-bold text-foreground">Personal Projects</h3>
+            <div className="flex-1 h-px bg-border" />
+          </div>
+          <div className="grid md:grid-cols-1 gap-6">
+            {personalProjects.map((project, index) => (
+              <motion.div
+                key={project.title}
+                initial={{ opacity: 0, y: 30 }}
+                animate={isInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.4, delay: 0.6 + index * 0.1 }}
+                className="group bg-card p-6 rounded-lg hover:-translate-y-1 transition-all duration-300 border border-primary/30"
+              >
+                <div className="flex justify-between items-start mb-4">
+                  <Folder className="w-10 h-10 text-primary" />
+                  <div className="flex items-center gap-3">
+                    <a
+                      href={project.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-muted-foreground hover:text-primary transition-colors"
+                      aria-label="GitHub Repository"
+                    >
+                      <Github className="w-5 h-5" />
+                    </a>
+                    <a
+                      href={project.external}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-muted-foreground hover:text-primary transition-colors"
+                      aria-label="Live Demo"
+                    >
+                      <ExternalLink className="w-5 h-5" />
+                    </a>
+                  </div>
+                </div>
+
+                <h4 className="text-lg font-semibold text-foreground mb-1 group-hover:text-primary transition-colors">
+                  <a href={project.external} target="_blank" rel="noopener noreferrer">
+                    {project.title}
+                  </a>
+                </h4>
+
+                {/* Highlight badges */}
+                <div className="flex gap-3 mb-3">
+                  {project.highlights.map(({ icon: Icon, label }) => (
+                    <span key={label} className="flex items-center gap-1 text-xs text-primary font-mono bg-primary/10 px-2 py-0.5 rounded-full">
+                      <Icon className="w-3 h-3" />
+                      {label}
+                    </span>
+                  ))}
+                </div>
+
+                <p className="text-muted-foreground text-sm mb-4 leading-relaxed">
+                  {project.description}
+                </p>
+
+                <div className="flex flex-wrap gap-2 items-center justify-between">
+                  <ul className="flex flex-wrap gap-2 text-xs font-mono">
+                    {project.tech.map((tech) => (
+                      <li key={tech} className="bg-primary/10 text-primary px-2 py-0.5 rounded">
+                        {tech}
+                      </li>
+                    ))}
+                  </ul>
+                  <a
+                    href={project.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-xs text-muted-foreground hover:text-primary transition-colors font-mono flex items-center gap-1 mt-2 md:mt-0"
+                  >
+                    <Github className="w-3 h-3" />
+                    View Source
+                  </a>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+
         </motion.div>
       </div>
     </section>

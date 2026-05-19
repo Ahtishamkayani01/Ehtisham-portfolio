@@ -48,6 +48,12 @@ const styles = StyleSheet.create({
     color: "#1155CC",
     textDecoration: "none",
   },
+  contactIcon: {
+    fontFamily: "Helvetica",
+    fontSize: 8,
+    color: "#666666",
+    marginRight: 2,
+  },
   section: {
     marginBottom: 8,
   },
@@ -68,7 +74,7 @@ const styles = StyleSheet.create({
     color: "#444444",
   },
   experienceItem: {
-    marginBottom: 7,
+    marginBottom: 6,
   },
   jobHeader: {
     flexDirection: "row",
@@ -88,12 +94,12 @@ const styles = StyleSheet.create({
   company: {
     fontSize: 8,
     color: "#444444",
-    marginBottom: 3,
+    marginBottom: 2,
     fontFamily: "Helvetica-Oblique",
   },
   bulletPoint: {
     flexDirection: "row",
-    marginBottom: 1.5,
+    marginBottom: 1,
     paddingLeft: 4,
   },
   bullet: {
@@ -118,7 +124,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   skillCategory: {
-    marginBottom: 4,
+    marginBottom: 3,
   },
   skillCategoryTitle: {
     fontSize: 7.5,
@@ -144,16 +150,16 @@ const styles = StyleSheet.create({
     color: "#666666",
   },
   projectBlock: {
-    marginBottom: 6,
+    marginBottom: 5,
   },
   projectTitle: {
     fontSize: 8,
     fontFamily: "Helvetica-Bold",
     color: "#1a1a2e",
-    marginBottom: 2,
+    marginBottom: 1,
   },
   projectLink: {
-    fontSize: 7.5,
+    fontSize: 7,
     color: "#1155CC",
     textDecoration: "none",
   },
@@ -164,7 +170,7 @@ const styles = StyleSheet.create({
     fontSize: 7.5,
   },
   activitiesText: {
-    fontSize: 7.5,
+    fontSize: 7,
     color: "#444444",
     lineHeight: 1.3,
     marginBottom: 3,
@@ -177,7 +183,41 @@ const styles = StyleSheet.create({
     borderBottomColor: "#AAAAAA",
     paddingBottom: 2,
     marginBottom: 4,
-    marginTop: 8,
+    marginTop: 6,
+  },
+  personalProjectBlock: {
+    marginBottom: 6,
+    padding: 4,
+    backgroundColor: "#f8f9ff",
+    borderLeftWidth: 2,
+    borderLeftColor: "#1a1a2e",
+  },
+  personalProjectHeader: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "flex-start",
+    marginBottom: 2,
+  },
+  personalProjectTitle: {
+    fontSize: 8,
+    fontFamily: "Helvetica-Bold",
+    color: "#1a1a2e",
+    flex: 1,
+  },
+  tagRow: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    gap: 3,
+    marginBottom: 3,
+    marginTop: 2,
+  },
+  tag: {
+    fontSize: 6,
+    color: "#1a1a2e",
+    backgroundColor: "#e8eaf6",
+    paddingHorizontal: 3,
+    paddingVertical: 1,
+    borderRadius: 2,
   },
 })
 
@@ -198,16 +238,20 @@ function CVDocument() {
         {/* ── Header ── */}
         <View style={styles.header}>
           <Text style={styles.name}>EHTISHAM NAWAZ KIANI</Text>
-          <Text style={styles.title}>SENIOR FRONTEND DEVELOPER</Text>
+          <Text style={styles.title}>FRONTEND ENGINEER</Text>
+          
+          {/* Contact Row 1 - Email and Phone */}
           <View style={styles.contactRow}>
-            <Text style={styles.contactItem}>✉  </Text>
+            <Text style={styles.contactItem}>Email:</Text>
             <Link src="mailto:ahtishamkayani01@gmail.com" style={styles.contactLink}>
               ahtishamkayani01@gmail.com
             </Link>
-            <Text style={styles.contactItem}>   |   ☏  +923035957991   |   ⊙  Islamabad, Pakistan</Text>
+            <Text style={styles.contactItem}>| Phone: +923035957991 | Location: Islamabad, Pakistan</Text>
           </View>
+          
+          {/* Contact Row 2 - LinkedIn */}
           <View style={styles.contactRow}>
-            <Text style={styles.contactItem}>in  </Text>
+            <Text style={styles.contactItem}>LinkedIn:</Text>
             <Link src="https://www.linkedin.com/in/ehtisham-nawaz-kiyani-704a98173/" style={styles.contactLink}>
               linkedin.com/in/ehtisham-nawaz-kiyani-704a98173
             </Link>
@@ -275,13 +319,16 @@ function CVDocument() {
               <Text style={styles.sectionTitle}>Technical Skills</Text>
               {[
                 ["Programming Languages", "JavaScript (ES6+), TypeScript, HTML5, CSS3, Sass"],
-                ["Also Familiar With", "Node.js, Go (Golang) — WebSocket chat apps, REST APIs, basic CRUD"],
+                ["Also Familiar With", "Node.js, Express.js, Go (Golang) — WebSocket-based chat apps, REST APIs, basic CRUD operations"],
                 ["Frameworks & Libraries", "React.js, Next.js, Three.js, React Three Fiber, Redux, Redux Toolkit, React Query, Vue.js, Styled Components, TailwindCSS, Material-UI, Bootstrap"],
                 ["State Management", "Redux, Context API, React Query"],
                 ["APIs", "RESTful APIs, Axios, WebSockets"],
+                ["Automation & Code Quality", "ESLint, Husky, Prettier, pre-commit hooks"],
+                ["CI/CD & Release Management", "GitHub Actions, CI/CD pipelines, Git branching workflows (GitFlow, trunk-based)"],
                 ["Testing", "Jest, Cypress"],
                 ["Build Tools", "Webpack, Babel, Gulp, Grunt"],
                 ["Cloud Platforms & DevOps", "AWS (S3, CloudFront, Lambda), Azure, Docker, Kubernetes"],
+                ["Architecture", "Micro Frontends, Mono Repo setups, Design Systems, Reusable UI Architecture"],
                 ["Collaboration Tools", "Slack, Microsoft Teams, Zoom"],
                 ["API & Development Tools", "Postman, Chrome DevTools"],
                 ["Version Control", "Git, GitHub"],
@@ -303,21 +350,44 @@ function CVDocument() {
               <Text style={styles.sectionTitle}>Professional Projects</Text>
 
               {[
-                { name: "EZ Oil Drain Valve", url: "https://ezoildrainvalve.com/", desc: "E-commerce platform for oil drain valves. Next.js SSR, Saleor APIs, Redux Toolkit, AWS CloudFront." },
-                { name: "Prestige Mustang", url: "https://prestigemustang.com/", desc: "Mustang parts e-commerce. Advanced filtering, SSR optimization, TailwindCSS." },
-                { name: "Monkey Tilt", url: "https://monkeytilt.com/", desc: "Online gaming platform. Custom Next.js middleware, Firebase auth, Redux, SSR." },
-                { name: "Plump", url: "https://plump.com/", desc: "Web platform with reusable component library, REST APIs, Redux state management." },
-                { name: "Foose Performance", url: "https://fooseperf.com/", desc: "Diesel truck parts store. Product catalog, dynamic search, code splitting." },
-                { name: "Jess Performance", url: "https://jessperformance.com/", desc: "Performance parts e-commerce. Configurator, Redux Toolkit, mobile-first UI." },
+                { name: "EZ Oil Drain Valve", url: "https://ezoildrainvalve.com/", desc: "E-commerce. Next.js SSR, Saleor APIs, Redux Toolkit." },
+                { name: "Prestige Mustang", url: "https://prestigemustang.com/", desc: "Mustang parts e-commerce. Advanced filtering, SSR optimization." },
+                { name: "Monkey Tilt", url: "https://monkeytilt.com/", desc: "Online gaming platform. Next.js middleware, Firebase auth." },
+                { name: "Plump", url: "https://plump.com/", desc: "Web platform with reusable component library, REST APIs." },
+                { name: "Foose Performance", url: "https://fooseperf.com/", desc: "Diesel truck parts store. Product catalog, code splitting." },
+                { name: "Jess Performance", url: "https://jessperformance.com/", desc: "Performance parts e-commerce. Configurator, Redux Toolkit." },
               ].map((p) => (
                 <View key={p.name} style={styles.projectBlock}>
-                  <View style={{ flexDirection: "row", gap: 4, alignItems: "center", marginBottom: 1 }}>
-                    <Text style={styles.projectTitle}>{p.name}, </Text>
+                  <View style={{ flexDirection: "row", gap: 4, alignItems: "center", marginBottom: 1, flexWrap: "wrap" }}>
+                    <Text style={styles.projectTitle}>{p.name}</Text>
                     <Link src={p.url} style={styles.projectLink}>{p.url.replace("https://", "")}</Link>
                   </View>
                   <Text style={styles.skillText}>{p.desc}</Text>
                 </View>
               ))}
+            </View>
+
+            {/* Personal Project - Shortened for one page */}
+            <View style={styles.section}>
+              <Text style={styles.sectionTitle}>Personal Project</Text>
+
+              <View style={styles.personalProjectBlock}>
+                <View style={styles.personalProjectHeader}>
+                  <Text style={styles.personalProjectTitle}>MERN Stack Auth & Admin Dashboard</Text>
+                </View>
+                <View style={{ flexDirection: "row", gap: 4, marginBottom: 2, flexWrap: "wrap" }}>
+                  <Link src="https://mern-project-beta-six.vercel.app" style={styles.projectLink}>
+                    Live Demo
+                  </Link>
+                  <Text style={{ fontSize: 7, color: "#999" }}>|</Text>
+                  <Link src="https://github.com/Ahtishamkayani01/MERN-Project" style={styles.projectLink}>
+                    Github
+                  </Link>
+                </View>
+                <BulletItem text="Full-stack MERN with JWT auth (bcrypt hashing) & RBAC on frontend/backend." />
+                <BulletItem text="Admin dashboard: view/delete users & contact submissions." />
+                <BulletItem text="Deployed on Vercel (frontend + serverless backend)." />
+              </View>
             </View>
 
             {/* Languages */}
@@ -333,15 +403,6 @@ function CVDocument() {
               </View>
             </View>
 
-            {/* Activities */}
-            <Text style={styles.activitiesTitle}>Activities</Text>
-            <Text style={styles.activitiesText}>
-              Contributed to the successful launch of multiple high-impact projects at Alpha Squad, leading to an increase in customer satisfaction.
-            </Text>
-            <Text style={styles.activitiesText}>
-              Actively participated in tech meetups and workshops, enhancing skills in the latest frontend technologies and development practices.
-            </Text>
-
           </View>
         </View>
 
@@ -352,7 +413,9 @@ function CVDocument() {
 
 export async function GET() {
   const buffer = await renderToBuffer(<CVDocument />)
-  return new Response(buffer, {
+  // Convert Buffer to Uint8Array
+  const uint8Array = new Uint8Array(buffer)
+  return new Response(uint8Array, {
     headers: {
       "Content-Type": "application/pdf",
       "Content-Disposition": 'attachment; filename="Ehtisham_Nawaz_Kiani_CV.pdf"',

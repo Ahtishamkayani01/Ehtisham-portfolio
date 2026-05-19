@@ -327,7 +327,6 @@ function CVDocument() {
                 ["CI/CD & Release Management", "GitHub Actions, CI/CD pipelines, Git branching workflows (GitFlow, trunk-based)"],
                 ["Testing", "Jest, Cypress"],
                 ["Build Tools", "Webpack, Babel, Gulp, Grunt"],
-                ["Cloud Platforms & DevOps", "AWS (S3, CloudFront, Lambda), Azure, Docker, Kubernetes"],
                 ["Architecture", "Micro Frontends, Mono Repo setups, Design Systems, Reusable UI Architecture"],
                 ["Collaboration Tools", "Slack, Microsoft Teams, Zoom"],
                 ["API & Development Tools", "Postman, Chrome DevTools"],

@@ -11,7 +11,7 @@ const skillCategories = [
   },
   {
     title: "Also Familiar With",
-    skills: ["Node.js", "Go (Golang)"],
+    skills: ["Node Js", "Express Js","Go (Golang)"],
   },
   {
     title: "Frameworks & Libraries",

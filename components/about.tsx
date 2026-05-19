@@ -1,12 +1,12 @@
-"use client"
+"use client";
 
-import { motion } from "framer-motion"
-import { useInView } from "framer-motion"
-import { useRef } from "react"
+import { motion } from "framer-motion";
+import { useInView } from "framer-motion";
+import { useRef } from "react";
 
 export function About() {
-  const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, margin: "-100px" })
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
     <section id="about" className="py-24 px-6" ref={ref}>
@@ -18,28 +18,40 @@ export function About() {
         >
           <div className="flex items-center gap-4 mb-8">
             <span className="text-primary font-mono text-sm">01.</span>
-            <h2 className="text-2xl md:text-3xl font-bold text-foreground">About Me</h2>
+            <h2 className="text-2xl md:text-3xl font-bold text-foreground">
+              About Me
+            </h2>
             <div className="flex-1 h-px bg-border" />
           </div>
 
           <div className="space-y-4 text-muted-foreground leading-relaxed">
             <p>
-              Results-driven Frontend Developer with <span className="text-foreground font-medium">5 years of experience</span> specializing 
-              in crafting responsive, scalable web applications using modern JavaScript frameworks. I have demonstrated 
-              expertise in <span className="text-primary">React.js</span>, <span className="text-primary">Next.js</span>, and UI/UX design 
-              principles, with a proven track record of enhancing user engagement and optimizing application performance.
+              Results-driven Frontend Developer with{" "}
+              <span className="text-foreground font-medium">
+                5 years of experience
+              </span>{" "}
+              specializing in crafting responsive, scalable web applications
+              using modern JavaScript frameworks. I have demonstrated expertise
+              in <span className="text-primary">React.js</span>,{" "}
+              <span className="text-primary">Next.js</span>, and UI/UX design
+              principles, with a proven track record of enhancing user
+              engagement and optimizing application performance.
             </p>
 
             <p>
-              Currently, I&apos;m leading a team of front-end developers at <span className="text-foreground font-medium">Alpha Squad</span>, 
-              providing mentorship, task assignments, and daily progress tracking to ensure timely project delivery. I&apos;ve 
-              spearheaded the development of reusable UI components, improving code maintainability by 35%.
+              Most recently, I led a team of front-end developers, providing
+              mentorship, task assignments, and daily progress tracking to
+              ensure timely project delivery. I spearheaded the development of
+              reusable UI components, improving code maintainability by{" "}
+              <span className="text-foreground font-medium">35%</span>.
             </p>
 
             <p>
-              I&apos;m passionate about collaborating with cross-functional teams to deliver high-quality projects on time 
-              and within budget. When I&apos;m not coding, I actively engage in tech meetups and workshops, continuously 
-              enhancing my expertise in the latest front-end technologies and development methodologies.
+              I&apos;m passionate about collaborating with cross-functional
+              teams to deliver high-quality projects on time and within budget.
+              When I&apos;m not coding, I actively engage in tech meetups and
+              workshops, continuously enhancing my expertise in the latest
+              front-end technologies and development methodologies.
             </p>
 
             <p className="text-sm">
@@ -59,7 +71,9 @@ export function About() {
               ].map((tech) => (
                 <li key={tech} className="flex items-center gap-2">
                   <span className="text-primary">▹</span>
-                  <span className="font-mono text-muted-foreground">{tech}</span>
+                  <span className="font-mono text-muted-foreground">
+                    {tech}
+                  </span>
                 </li>
               ))}
             </ul>
@@ -67,5 +81,5 @@ export function About() {
         </motion.div>
       </div>
     </section>
-  )
+  );
 }

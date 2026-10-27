@@ -272,6 +272,19 @@ function CVDocument() {
 
           <View style={styles.experienceItem}>
             <View style={styles.jobHeader}>
+              <Text style={styles.jobTitle}>Senior Frontend Engineer & Team Lead — PayOn</Text>
+              <Text style={styles.jobDate}>Jun 2026 – Present</Text>
+            </View>
+            <Text style={styles.company}>Remote | payon.app</Text>
+            <BulletItem text="Building the frontend of PayOn, an intelligent transactional orchestration platform redefining how dining operations manage orders, payments, and table flows." />
+            <BulletItem text="Architecting scalable React.js/Next.js interfaces that transform complex real-time transactional data into intuitive staff-facing dashboards and guest-facing payment flows." />
+            <BulletItem text="Implementing live order management, bill-splitting, and payment orchestration features across a multitenant SaaS platform serving restaurants and hospitality venues." />
+            <BulletItem text="Collaborating with backend and product teams to define API contracts and data models for real-time WebSocket-driven order and payment events." />
+            <BulletItem text="Establishing frontend standards, component architecture, and CI/CD practices for a greenfield product in a fast-moving startup environment." />
+          </View>
+
+          <View style={styles.experienceItem}>
+            <View style={styles.jobHeader}>
               <Text style={styles.jobTitle}>Lead Frontend Developer — Alpha Squad</Text>
               <Text style={styles.jobDate}>02/2022 – May 2026</Text>
             </View>

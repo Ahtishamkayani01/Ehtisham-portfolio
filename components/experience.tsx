@@ -2,15 +2,32 @@
 
 import { motion } from "framer-motion"
 import { useInView } from "framer-motion"
-import { useRef, useState } from "react"
-import { ExternalLink } from "lucide-react"
+import { useRef } from "react"
+import { ExternalLink, MapPin, Calendar } from "lucide-react"
 
 const experiences = [
   {
+    title: "Senior Frontend Engineer & Team Lead",
+    company: "PayOn",
+    companyUrl: "https://payon.app/",
+    location: "Remote",
+    period: "Jun 2026 — Present",
+    current: true,
+    description: [
+      "Building the frontend of PayOn, an intelligent transactional orchestration platform redefining how dining operations manage orders, payments, and table flows",
+      "Architecting scalable React.js/Next.js interfaces that transform complex real-time transactional data into intuitive staff-facing dashboards and guest-facing payment flows",
+      "Implementing live order management, bill-splitting, and payment orchestration features across a multitenant SaaS platform serving restaurants and hospitality venues",
+      "Collaborating with backend and product teams to define API contracts and data models for real-time WebSocket-driven order and payment events",
+      "Establishing frontend standards, component architecture, and CI/CD practices for a greenfield product in a fast-moving startup environment",
+    ],
+  },
+  {
     title: "Lead Frontend Developer",
     company: "Alpha Squad",
+    companyUrl: "https://www.alphasquad.studio/",
     location: "Islamabad, Pakistan",
     period: "Feb 2022 — May 2026",
+    current: false,
     description: [
       "Led a team of front-end developers, providing mentorship, task assignments, and daily progress tracking to ensure timely project delivery",
       "Spearheaded the development of reusable UI components, improving code maintainability by 35%",
@@ -24,8 +41,10 @@ const experiences = [
   {
     title: "Frontend Developer",
     company: "Alpha Squad",
+    companyUrl: "https://www.alphasquad.studio/",
     location: "Islamabad, Pakistan",
     period: "Nov 2021 — Feb 2022",
+    current: false,
     description: [
       "Maintained and developed web applications using Next.js and modern CSS frameworks",
       "Created a library of reusable React components, accelerating project timelines by 15%",
@@ -47,7 +66,6 @@ const projects = [
 export function Experience() {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: "-100px" })
-  const [activeTab, setActiveTab] = useState(0)
 
   return (
     <section id="experience" className="py-24 px-6" ref={ref}>
@@ -63,55 +81,80 @@ export function Experience() {
             <div className="flex-1 h-px bg-border" />
           </div>
 
-          <div className="flex flex-col md:flex-row gap-8">
-            {/* Tabs */}
-            <div className="flex md:flex-col overflow-x-auto md:overflow-visible border-b md:border-b-0 md:border-l border-border">
+          {/* Timeline */}
+          <div className="relative">
+            {/* Vertical line */}
+            <div className="absolute left-0 md:left-6 top-0 bottom-0 w-px bg-border" />
+
+            <div className="space-y-10">
               {experiences.map((exp, index) => (
-                <button
+                <motion.div
                   key={index}
-                  onClick={() => setActiveTab(index)}
-                  className={`px-4 py-3 text-left text-sm font-mono whitespace-nowrap transition-all
-                    ${activeTab === index 
-                      ? "text-primary bg-primary/10 border-b-2 md:border-b-0 md:border-l-2 border-primary -mb-px md:mb-0 md:-ml-px" 
-                      : "text-muted-foreground hover:text-foreground hover:bg-secondary/50"
-                    }`}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={isInView ? { opacity: 1, x: 0 } : {}}
+                  transition={{ duration: 0.5, delay: index * 0.15 }}
+                  className="relative pl-8 md:pl-16"
                 >
-                  {exp.company}
-                </button>
+                  {/* Dot */}
+                  <div className={`absolute left-[-5px] md:left-[19px] top-2 w-3 h-3 rounded-full border-2 border-primary ${exp.current ? "bg-primary" : "bg-background"}`} />
+
+                  <div className={`rounded-xl border p-6 transition-all hover:shadow-lg hover:shadow-primary/5 hover:border-primary/30 ${exp.current ? "border-primary/40 bg-primary/5" : "border-border bg-secondary/20"}`}>
+                    <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 mb-4">
+                      <div>
+                        <h3 className="text-lg font-semibold text-foreground">
+                          {exp.title}
+                        </h3>
+                        <div className="flex items-center gap-1 mt-1">
+                          {exp.companyUrl ? (
+                            <a
+                              href={exp.companyUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-primary font-medium hover:underline flex items-center gap-1"
+                            >
+                              {exp.company}
+                              <ExternalLink className="w-3 h-3" />
+                            </a>
+                          ) : (
+                            <span className="text-primary font-medium">{exp.company}</span>
+                          )}
+                          {exp.current && (
+                            <span className="ml-2 px-2 py-0.5 text-xs font-mono rounded-full bg-primary/20 text-primary border border-primary/30">
+                              Current
+                            </span>
+                          )}
+                        </div>
+                      </div>
+                      <div className="flex flex-col items-start sm:items-end gap-1 shrink-0">
+                        <div className="flex items-center gap-1 text-xs text-muted-foreground font-mono">
+                          <Calendar className="w-3 h-3" />
+                          {exp.period}
+                        </div>
+                        <div className="flex items-center gap-1 text-xs text-muted-foreground">
+                          <MapPin className="w-3 h-3" />
+                          {exp.location}
+                        </div>
+                      </div>
+                    </div>
+
+                    <ul className="space-y-2">
+                      {exp.description.map((item, i) => (
+                        <li key={i} className="flex gap-3 text-muted-foreground text-sm leading-relaxed">
+                          <span className="text-primary mt-1 shrink-0">▹</span>
+                          <span>{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </motion.div>
               ))}
             </div>
-
-            {/* Content */}
-            <motion.div
-              key={activeTab}
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.3 }}
-              className="flex-1"
-            >
-              <h3 className="text-xl font-semibold text-foreground">
-                {experiences[activeTab].title}{" "}
-                <span className="text-primary">@ {experiences[activeTab].company}</span>
-              </h3>
-              <p className="text-muted-foreground text-sm font-mono mt-1 mb-4">
-                {experiences[activeTab].period} · {experiences[activeTab].location}
-              </p>
-
-              <ul className="space-y-3">
-                {experiences[activeTab].description.map((item, index) => (
-                  <li key={index} className="flex gap-3 text-muted-foreground text-sm leading-relaxed">
-                    <span className="text-primary mt-1">▹</span>
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </motion.div>
           </div>
 
           {/* Notable Projects */}
           <div className="mt-16">
             <h3 className="text-lg font-semibold text-foreground mb-6">Notable Projects at Alpha Squad</h3>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
               {projects.map((project) => (
                 <a
                   key={project.name}

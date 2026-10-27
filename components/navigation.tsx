@@ -16,10 +16,19 @@ const navItems = [
 export function Navigation() {
   const [isOpen, setIsOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+  const [activeSection, setActiveSection] = useState("")
 
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50)
+      const sections = [...navItems].reverse()
+      for (const item of sections) {
+        const el = document.getElementById(item.href.replace("#", ""))
+        if (el && window.scrollY >= el.offsetTop - 120) {
+          setActiveSection(item.href)
+          break
+        }
+      }
     }
     window.addEventListener("scroll", handleScroll)
     return () => window.removeEventListener("scroll", handleScroll)
@@ -46,7 +55,7 @@ export function Navigation() {
               <Link
                 key={item.name}
                 href={item.href}
-                className="text-muted-foreground hover:text-primary transition-colors text-sm"
+                className={`transition-colors text-sm ${activeSection === item.href ? "text-primary font-medium" : "text-muted-foreground hover:text-primary"}`}
               >
                 {item.name}
               </Link>
@@ -83,7 +92,7 @@ export function Navigation() {
                 <Link
                   key={item.name}
                   href={item.href}
-                  className="text-muted-foreground hover:text-primary transition-colors py-2"
+                  className={`transition-colors py-2 ${activeSection === item.href ? "text-primary font-medium" : "text-muted-foreground hover:text-primary"}`}
                   onClick={() => setIsOpen(false)}
                 >
                   {item.name}

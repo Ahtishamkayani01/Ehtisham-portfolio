@@ -3,7 +3,7 @@
 import { motion } from "framer-motion"
 import { useInView } from "framer-motion"
 import { useRef } from "react"
-import { ExternalLink, MapPin, Calendar } from "lucide-react"
+import { ExternalLink, MapPin, Calendar, Lock } from "lucide-react"
 
 const experiences = [
   {
@@ -54,13 +54,15 @@ const experiences = [
   },
 ]
 
-const projects = [
+const projects: { name: string; url?: string }[] = [
+  { name: "Alpha Squad", url: "https://www.alphasquad.studio/" },
   { name: "EZ Oil Drain Valve", url: "https://ezoildrainvalve.com/" },
   { name: "Prestige Mustang", url: "https://prestigemustang.com/" },
   { name: "MonkeyTilt", url: "https://monkeytilt.com/" },
   { name: "Plump", url: "https://plump.com/" },
   { name: "Foose Performance", url: "https://fooseperf.com/" },
   { name: "Jess Performance", url: "https://jessperformance.com/" },
+  { name: "Repair Management System" },
 ]
 
 export function Experience() {
@@ -155,7 +157,8 @@ export function Experience() {
           <div className="mt-16">
             <h3 className="text-lg font-semibold text-foreground mb-6">Notable Projects at Alpha Squad</h3>
             <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-              {projects.map((project) => (
+              {projects.map((project) =>
+                project.url ? (
                 <a
                   key={project.name}
                   href={project.url}
@@ -168,7 +171,17 @@ export function Experience() {
                   </span>
                   <ExternalLink className="w-3 h-3 text-primary opacity-0 group-hover:opacity-100 transition-opacity shrink-0" />
                 </a>
-              ))}
+                ) : (
+                  <div
+                    key={project.name}
+                    title="Confidential client (under NDA)"
+                    className="flex items-center gap-2 p-3 rounded-lg bg-secondary/50 text-sm"
+                  >
+                    <span className="text-muted-foreground truncate">{project.name}</span>
+                    <Lock className="w-3 h-3 text-muted-foreground shrink-0" />
+                  </div>
+                )
+              )}
             </div>
           </div>
         </motion.div>

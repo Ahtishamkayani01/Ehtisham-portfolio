@@ -332,7 +332,7 @@ function CVDocument() {
               <Text style={styles.sectionTitle}>Technical Skills</Text>
               {[
                 ["Programming Languages", "JavaScript (ES6+), TypeScript, HTML5, CSS3, Sass"],
-                ["Also Familiar With", "Node.js, Express.js, Go (Golang) — WebSocket-based chat apps, REST APIs, basic CRUD operations"],
+                ["Also Familiar With", "Node.js, Express.js, MongoDB, Go (Golang) — WebSocket-based chat apps, REST APIs, CRUD operations with MongoDB"],
                 ["Frameworks & Libraries", "React.js, Next.js, Three.js, React Three Fiber, Redux, Redux Toolkit, React Query, Vue.js, Styled Components, TailwindCSS, Material-UI, Bootstrap"],
                 ["State Management", "Redux, Context API, React Query"],
                 ["APIs", "RESTful APIs, Axios, WebSockets"],

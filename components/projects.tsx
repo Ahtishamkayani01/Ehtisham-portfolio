@@ -420,7 +420,7 @@ function SectionHeading({ index, title, subtitle }: { index: string; title: stri
   const ref = useRef(null)
   const inView = useInView(ref, { once: true, margin: "-80px" })
   return (
-    <div ref={ref} className="mb-16">
+    <div ref={ref} className="mb-10 md:mb-12">
       <div className="flex items-center gap-4">
         <span className="text-primary font-mono text-sm">{index}</span>
         <h2 className="overflow-hidden text-3xl md:text-5xl font-black uppercase tracking-tight text-foreground">
@@ -447,7 +447,7 @@ function SectionHeading({ index, title, subtitle }: { index: string; title: stri
 
 export function Projects() {
   return (
-    <section id="projects" className="relative py-32 px-6 overflow-hidden">
+    <section id="projects" className="relative py-14 md:py-20 px-6 overflow-hidden">
       <div className="max-w-6xl mx-auto">
         <SectionHeading
           index="03."
@@ -455,13 +455,13 @@ export function Projects() {
           subtitle="Selected case studies, focused on the frontend I designed, built and shipped."
         />
 
-        <div className="space-y-32 md:space-y-44">
+        <div className="space-y-16 md:space-y-24">
           {featured.map((p, i) => (
             <CaseStudyRow key={p.title} project={p} index={i} />
           ))}
         </div>
 
-        <div className="mt-40">
+        <div className="mt-20 md:mt-28">
           <SectionHeading index="03.1" title="More Projects" subtitle="More client work delivered at Alpha Squad." />
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {more.map((p, i) => (
@@ -470,7 +470,7 @@ export function Projects() {
           </div>
         </div>
 
-        <div className="mt-40">
+        <div className="mt-20 md:mt-28">
           <SectionHeading index="03.2" title="Personal Project" />
           <CaseStudyRow project={personal} index={0} />
         </div>

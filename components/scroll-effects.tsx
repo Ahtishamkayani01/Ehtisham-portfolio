@@ -1,6 +1,7 @@
 "use client"
 
 import { motion, useReducedMotion, useScroll, useSpring, useTransform } from "framer-motion"
+import { useIsMobile } from "@/hooks/use-mobile"
 
 /** Thin progress bar at the top of the viewport that fills as the page scrolls. */
 export function ScrollProgress() {
@@ -16,7 +17,10 @@ export function ScrollProgress() {
 
 /** Fixed ambient glow orbs + grid that drift at different speeds for a layered parallax feel. */
 export function ParallaxBackground() {
-  const reduce = useReducedMotion()
+  const reduceMotion = useReducedMotion()
+  const isMobile = useIsMobile()
+  // Moving 120px-blurred layers every scroll frame is too heavy for mobile GPUs; keep them static there.
+  const reduce = reduceMotion || isMobile
   const { scrollYProgress } = useScroll()
   const slow = useTransform(scrollYProgress, [0, 1], reduce ? [0, 0] : [0, -300])
   const mid = useTransform(scrollYProgress, [0, 1], reduce ? [0, 0] : [0, -700])
@@ -31,15 +35,15 @@ export function ParallaxBackground() {
       />
       <motion.div
         style={{ y: mid, rotate }}
-        className="absolute -top-40 -left-40 h-[36rem] w-[36rem] rounded-full bg-primary/15 blur-[120px]"
+        className="absolute -top-40 -left-40 h-[36rem] w-[36rem] rounded-full bg-primary/15 blur-[80px] md:blur-[120px] will-change-transform"
       />
       <motion.div
         style={{ y: fast }}
-        className="absolute top-[60vh] -right-32 h-[30rem] w-[30rem] rounded-full bg-cyan-500/10 blur-[120px]"
+        className="absolute top-[60vh] -right-32 h-[30rem] w-[30rem] rounded-full bg-cyan-500/10 blur-[80px] md:blur-[120px] will-change-transform"
       />
       <motion.div
         style={{ y: mid }}
-        className="absolute top-[140vh] left-1/4 h-[28rem] w-[28rem] rounded-full bg-indigo-500/10 blur-[120px]"
+        className="absolute top-[140vh] left-1/4 h-[28rem] w-[28rem] rounded-full bg-indigo-500/10 blur-[80px] md:blur-[120px] will-change-transform"
       />
     </div>
   )

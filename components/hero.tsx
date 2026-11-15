@@ -15,6 +15,7 @@ import {
 import { useEffect, useRef, useState, type MouseEvent } from "react"
 import { ArrowRight, FileDown, Linkedin, Mail, MapPin, Phone } from "lucide-react"
 import Image from "next/image"
+import { useIsMobile } from "@/hooks/use-mobile"
 
 const ease = [0.22, 1, 0.36, 1] as const
 
@@ -42,10 +43,10 @@ const marquee = [
 ]
 
 const chips = [
-  { label: "React", className: "-left-6 top-10", delay: 0 },
-  { label: "Next.js", className: "-right-4 top-4", delay: 0.6 },
-  { label: "TypeScript", className: "-left-14 top-[42%]", delay: 1.2 },
-  { label: "Tailwind", className: "-right-8 bottom-8", delay: 1.8 },
+  { label: "React", className: "-left-2 top-6 md:-left-6 md:top-10", delay: 0 },
+  { label: "Next.js", className: "right-0 -top-2 md:-right-4 md:top-4", delay: 0.6 },
+  { label: "TypeScript", className: "-left-4 top-[42%] md:-left-14", delay: 1.2 },
+  { label: "Tailwind", className: "right-0 top-[54%] md:top-auto md:-right-8 md:bottom-8", delay: 1.8 },
 ]
 
 function SplitName({ text, delay, className }: { text: string; delay: number; className?: string }) {
@@ -74,14 +75,18 @@ function RotatingWord() {
   }, [])
   return (
     <span className="relative inline-grid overflow-hidden align-bottom">
-      <AnimatePresence mode="wait">
+      {/* invisible sizer: keeps the box at the widest word so surrounding layout never shifts */}
+      <span aria-hidden className="invisible col-start-1 row-start-1 whitespace-nowrap">
+        {rotatingWords.reduce((a, b) => (b.length > a.length ? b : a))}
+      </span>
+      <AnimatePresence mode="wait" initial={false}>
         <motion.span
           key={rotatingWords[i]}
           initial={{ y: "100%", opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: "-100%", opacity: 0 }}
           transition={{ duration: 0.45, ease }}
-          className="text-primary whitespace-nowrap"
+          className="col-start-1 row-start-1 text-primary whitespace-nowrap"
         >
           {rotatingWords[i]}
         </motion.span>
@@ -125,7 +130,7 @@ function Portrait() {
       initial={{ opacity: 0, scale: 0.85 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 1, ease, delay: 0.4 }}
-      className="relative mb-16 lg:mb-0 flex justify-center lg:justify-end [perspective:1000px]"
+      className="relative mb-12 lg:mb-0 flex justify-center lg:justify-end [perspective:1000px]"
     >
       <motion.div
         onMouseMove={onMove}
@@ -134,7 +139,7 @@ function Portrait() {
           my.set(0)
         }}
         style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
-        className="relative w-72 h-72 md:w-[22rem] md:h-[22rem]"
+        className="relative w-64 h-64 sm:w-72 sm:h-72 md:w-[22rem] md:h-[22rem]"
       >
         {/* glow */}
         <div className="absolute -inset-10 rounded-full bg-primary/25 blur-3xl animate-pulse" />
@@ -160,7 +165,7 @@ function Portrait() {
               scale: { delay: 1 + c.delay * 0.3, duration: 0.5 },
               y: { delay: c.delay, duration: 4, repeat: Infinity, ease: "easeInOut" },
             }}
-            className={`absolute ${c.className} z-10 rounded-full border border-white/10 bg-card/80 backdrop-blur-md px-3.5 py-1.5 text-xs font-mono text-foreground shadow-lg shadow-black/40`}
+            className={`absolute ${c.className} z-10 rounded-full border border-white/10 bg-card/90 md:bg-card/80 md:backdrop-blur-md px-3.5 py-1.5 text-xs font-mono text-foreground shadow-lg shadow-black/40`}
           >
             <span className="mr-1.5 inline-block h-1.5 w-1.5 rounded-full bg-primary align-middle" />
             {c.label}
@@ -173,7 +178,7 @@ function Portrait() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1.4, duration: 0.7, ease }}
-          className="absolute -bottom-10 left-1/2 -translate-x-1/2 md:left-auto md:translate-x-0 md:-left-16 z-20 w-56 rounded-xl border border-white/10 bg-[#0b0f14]/90 backdrop-blur-md p-3 font-mono text-[11px] leading-relaxed shadow-2xl shadow-black/60"
+          className="absolute -bottom-10 left-1/2 -translate-x-1/2 md:left-auto md:translate-x-0 md:-left-16 z-20 w-56 rounded-xl border border-white/10 bg-[#0b0f14]/95 md:bg-[#0b0f14]/90 md:backdrop-blur-md p-3 font-mono text-[11px] leading-relaxed shadow-2xl shadow-black/60"
         >
           <div className="mb-2 flex gap-1.5">
             <span className="h-2 w-2 rounded-full bg-[#ff5f57]" />
@@ -201,7 +206,10 @@ function Portrait() {
 
 export function Hero() {
   const ref = useRef<HTMLElement>(null)
-  const reduce = useReducedMotion()
+  const reduceMotion = useReducedMotion()
+  const isMobile = useIsMobile()
+  // Scroll-linked parallax is janky on phones (address-bar resizes + re-rasterising a scaled layer), so desktop only.
+  const reduce = reduceMotion || isMobile
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] })
   const y = useTransform(scrollYProgress, [0, 1], reduce ? [0, 0] : [0, 220])
   const opacity = useTransform(scrollYProgress, [0, 0.8], reduce ? [1, 1] : [1, 0])
@@ -220,12 +228,12 @@ export function Hero() {
         sx.set(e.clientX - r.left)
         sy.set(e.clientY - r.top)
       }}
-      className="relative min-h-screen flex flex-col justify-center pt-28 pb-10 overflow-hidden"
+      className="relative min-h-svh flex flex-col justify-center pt-24 md:pt-28 pb-6 md:pb-8 overflow-hidden"
     >
       <motion.div aria-hidden style={{ background: spotlight }} className="pointer-events-none absolute inset-0" />
 
       <motion.div style={{ y, opacity, scale }} className="relative max-w-6xl mx-auto w-full px-6">
-        <div className="grid lg:grid-cols-[1.25fr_1fr] gap-16 items-center">
+        <div className="grid lg:grid-cols-[1.25fr_1fr] gap-14 lg:gap-16 items-center">
           <div>
             <motion.div
               initial={{ opacity: 0, y: 10 }}
@@ -328,7 +336,7 @@ export function Hero() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 1.35, duration: 0.6, ease }}
-              className="mt-12 grid grid-cols-3 max-w-lg divide-x divide-white/10 rounded-2xl border border-white/10 bg-card/40 backdrop-blur"
+              className="mt-12 grid grid-cols-3 max-w-lg divide-x divide-white/10 rounded-2xl border border-white/10 bg-card/60 md:bg-card/40 md:backdrop-blur"
             >
               {stats.map((s) => (
                 <div key={s.label} className="px-4 py-4 text-center">
@@ -351,7 +359,7 @@ export function Hero() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.6, duration: 0.8 }}
-        className="relative mt-24 border-y border-white/5 bg-card/20 py-4 [mask-image:linear-gradient(90deg,transparent,black_15%,black_85%,transparent)]"
+        className="relative mt-12 md:mt-16 border-y border-white/5 bg-card/20 py-4 [mask-image:linear-gradient(90deg,transparent,black_15%,black_85%,transparent)]"
       >
         <div className="flex w-max animate-[hero-marquee_35s_linear_infinite] gap-12 hover:[animation-play-state:paused]">
           {[...marquee, ...marquee].map((t, i) => (
@@ -370,7 +378,7 @@ export function Hero() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.8 }}
-        className="mx-auto mt-8 flex h-10 w-6 justify-center rounded-full border border-white/20 pt-2"
+        className="mx-auto mt-6 flex h-10 w-6 justify-center rounded-full border border-white/20 pt-2"
       >
         <motion.span
           animate={reduce ? {} : { y: [0, 12, 0], opacity: [1, 0.2, 1] }}

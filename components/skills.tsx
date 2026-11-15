@@ -86,7 +86,7 @@ export function Skills() {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section id="skills" className="py-24 px-6 bg-secondary/30" ref={ref}>
+    <section id="skills" className="py-14 md:py-20 px-6 bg-secondary/30" ref={ref}>
       <div className="max-w-6xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 50 }}

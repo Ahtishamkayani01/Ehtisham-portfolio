@@ -56,7 +56,7 @@ const projects: { name: string; url?: string }[] = [
   { name: "EZ Oil Drain Valve", url: "https://ezoildrainvalve.com/" },
   { name: "Prestige Mustang", url: "https://prestigemustang.com/" },
   { name: "MonkeyTilt", url: "https://monkeytilt.com/" },
-  { name: "Plump", url: "https://plump.com/" },
+  { name: "Plump" },
   { name: "Foose Performance", url: "https://fooseperf.com/" },
   { name: "Jess Performance", url: "https://jessperformance.com/" },
   { name: "Repair Management System" },
@@ -122,9 +122,9 @@ export function Experience() {
                     {project.name}
                   </a>
                 ) : (
-                  <span className="inline-flex items-center gap-2 text-stone" title="Confidential client (under NDA)">
+                  <span className="inline-flex items-center gap-2 text-stone" title="Not public">
                     {project.name}
-                    <Lock className="h-4 w-4" aria-label="under NDA" />
+                    <Lock className="h-4 w-4" aria-label="not public" />
                   </span>
                 )}
               </li>

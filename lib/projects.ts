@@ -14,6 +14,8 @@ export type CaseStudy = {
   frameLabel?: string
   url?: string
   github?: string
+  /** Why there is no public link (shown under the "Not public" badge) */
+  privateNote?: string
   /** A related public page when the project itself is private (e.g. the marketing site) */
   publicSite?: { label: string; url: string }
   nda?: boolean
@@ -53,6 +55,7 @@ export const featured: CaseStudy[] = [
     image: "/images/projects/payon-dashboard.jpg",
     phoneImage: "/images/projects/payon-customer.jpg",
     frameLabel: "PayOn · Restaurant Portal",
+    privateNote: "The portal and guest app run behind a login, so there's no public link.",
     publicSite: { label: "payon.app (marketing site)", url: "https://payon.app/" },
   },
   {
@@ -113,7 +116,7 @@ export const featured: CaseStudy[] = [
     ],
     stack: ["React", "Next.js", "Redux", "TailwindCSS", "WebSocket"],
     image: "/images/projects/plump.jpg",
-    url: "https://plump.com/",
+    privateNote: "This build isn't publicly available, so there's no link.",
   },
 ]
 

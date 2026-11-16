@@ -250,7 +250,7 @@ const projects: { name: string; url?: string; note?: string; desc: string }[] = 
   { name: "EZ Oil Drain Valve", url: "https://ezoildrainvalve.com/", desc: "Led e-commerce frontend. Next.js SSR listing/detail/checkout; Saleor catalog, inventory & orders; Redux Toolkit filtering, search, cart; CloudFront caching." },
   { name: "Prestige Mustang", url: "https://prestigemustang.com/", desc: "Mustang parts store. Catalog, search & filtering with TailwindCSS; SSR + image optimization; social feeds and newsletter flows." },
   { name: "Foose Performance", url: "https://fooseperf.com/", desc: "Diesel truck shop & parts store. Cummins, Duramax, Powerstroke catalog; parts search & filtering; code splitting, lazy loading." },
-  { name: "Plump", url: "https://plump.com/", desc: "Responsive React.js UI with reusable component library; REST APIs with Redux; cross-browser, mobile-first." },
+  { name: "Plump", note: "Not public", desc: "Responsive React.js UI with reusable component library; REST APIs with Redux; cross-browser, mobile-first." },
   { name: "Jess Performance", url: "https://jessperformance.com/", desc: "Diesel performance store. Power package configurator, parts browsing; Redux Toolkit cart & checkout; Saleor GraphQL catalog." },
   { name: "Repair Management System", note: "Confidential (NDA)", desc: "Internal & customer apps in 3 weeks: embeddable tracking widget, auto ticket IDs, color-coded tag grouping & reordering of 1000+ tickets, analytics charts." },
 ]

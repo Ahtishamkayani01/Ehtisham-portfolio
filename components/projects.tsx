@@ -125,7 +125,7 @@ function ProjectLinks({ project }: { project: CaseStudy }) {
         <span className="flex flex-col items-start gap-2">
           <PrivateBadge project={project} />
           <span className="text-xs font-normal text-stone">
-            {project.nda ? "Client work under NDA, so there's no public link." : "The portal and guest app run behind a login, so there's no public link."}
+            {project.privateNote ?? (project.nda ? "Client work under NDA, so there's no public link." : "Not publicly available, so there's no link.")}
           </span>
         </span>
       )}

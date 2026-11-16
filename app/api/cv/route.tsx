@@ -308,10 +308,10 @@ function CVDocument() {
               <Text style={styles.jobDate}>Feb 2023 – May 2026</Text>
             </View>
             <Text style={styles.company}>Islamabad, Pakistan</Text>
-            <BulletItem text="Led a team of frontend engineers: mentorship, task assignment, daily progress tracking and Agile ceremonies (stand-ups, sprint planning, retrospectives) for on-time delivery." />
+            <BulletItem text="Led a frontend team: mentorship, task assignment, daily tracking and Agile ceremonies (stand-ups, sprint planning, retros) for on-time delivery." />
             <BulletItem text="Spearheaded a reusable UI component library across projects; implemented micro-frontend architecture and monorepos for independently deployable modules." />
             <BulletItem text="Optimized performance with useMemo, useCallback, code splitting and lazy loading, reducing load times and improving Core Web Vitals." />
-            <BulletItem text="Established code reviews with ESLint, Prettier and Husky pre-commit hooks, achieving a major reduction in production bugs; designed RESTful API integrations with backend teams." />
+            <BulletItem text="Set up code reviews with ESLint, Prettier and Husky hooks, sharply cutting production bugs; designed RESTful API integrations with backend teams." />
             <BulletItem text="Used AI developer tools (Claude Code, GitHub Copilot) for code generation, automated testing and code review, boosting team productivity." />
           </View>
 
@@ -321,8 +321,8 @@ function CVDocument() {
               <Text style={styles.jobDate}>Nov 2021 – Feb 2023</Text>
             </View>
             <Text style={styles.company}>Islamabad, Pakistan</Text>
-            <BulletItem text="Built and maintained Next.js/React.js apps with TailwindCSS and Styled Components; created a reusable React component library that standardized UI patterns and sped up timelines." />
-            <BulletItem text="Migrated legacy codebases to modern React (hooks, functional components), reducing technical debt; built custom client UI that measurably improved customer satisfaction." />
+            <BulletItem text="Built Next.js/React.js apps with TailwindCSS and Styled Components; created a reusable React component library that standardized UI and sped up delivery." />
+            <BulletItem text="Migrated legacy code to modern React (hooks, functional components), cutting technical debt; built custom client UI that improved customer satisfaction." />
           </View>
         </View>
 
@@ -339,24 +339,29 @@ function CVDocument() {
               ))}
             </View>
 
-            <View style={styles.section}>
-              <Text style={styles.sectionTitle}>Education</Text>
-              <View style={styles.jobHeader}>
-                <Text style={styles.degree}>Bachelor of Software Engineering — Riphah International University</Text>
-              </View>
-              <Text style={styles.school}>Islamabad, Pakistan | Sep 2018 – Sep 2022</Text>
-            </View>
 
             <View style={styles.section}>
-              <Text style={styles.sectionTitle}>Personal Project</Text>
+              <Text style={styles.sectionTitle}>Personal Projects</Text>
+              <View style={styles.personalProjectBlock}>
+                <View style={styles.personalProjectHeader}>
+                  <Text style={styles.personalProjectTitle}>AI Chat App (MERN + Next.js)</Text>
+                  <View style={{ flexDirection: "row", gap: 4 }}>
+                    <Link src="https://ai-chat-web-app-31ys.vercel.app/login" style={styles.projectLink}>Live Demo</Link>
+                    <Text style={{ fontSize: 7, color: "#999" }}>|</Text>
+                  <Link src="https://github.com/Ahtishamkayani01/ai-chat-web-app" style={styles.projectLink}>GitHub</Link>
+                  </View>
+                </View>
+                <BulletItem text="Next.js + Express + MongoDB; streamed AI replies (NDJSON) as Markdown with stop, regenerate, copy and thumbs feedback; one provider layer for Gemini, Groq, OpenRouter, Ollama." />
+                <BulletItem text="JWT httpOnly-cookie auth, saved chats with rename/delete, rate-limit and network errors with Retry, dark/light mode, mobile slide-out sidebar." />
+              </View>
               <View style={styles.personalProjectBlock}>
                 <View style={styles.personalProjectHeader}>
                   <Text style={styles.personalProjectTitle}>MERN Authentication & Admin Dashboard</Text>
-                </View>
-                <View style={{ flexDirection: "row", gap: 4, marginBottom: 2, flexWrap: "wrap" }}>
-                  <Link src="https://mern-project-beta-six.vercel.app" style={styles.projectLink}>Live Demo</Link>
-                  <Text style={{ fontSize: 7, color: "#999" }}>|</Text>
+                  <View style={{ flexDirection: "row", gap: 4 }}>
+                    <Link src="https://mern-project-beta-six.vercel.app" style={styles.projectLink}>Live Demo</Link>
+                    <Text style={{ fontSize: 7, color: "#999" }}>|</Text>
                   <Link src="https://github.com/Ahtishamkayani01/MERN-Project" style={styles.projectLink}>GitHub</Link>
+                  </View>
                 </View>
                 <BulletItem text="bcrypt password hashing, stateless JWT auth and role-based access control across React and Express." />
                 <BulletItem text="Admin dashboard for users and contact submissions, with protected routes on frontend and backend." />
@@ -383,6 +388,13 @@ function CVDocument() {
             </View>
 
 
+            <View style={styles.section}>
+              <Text style={styles.sectionTitle}>Education</Text>
+              <View style={styles.jobHeader}>
+                <Text style={styles.degree}>BS Software Engineering — Riphah International University</Text>
+              </View>
+              <Text style={styles.school}>Islamabad, Pakistan | Sep 2018 – Sep 2022</Text>
+            </View>
             <View style={styles.section}>
               <Text style={styles.sectionTitle}>Additional Information</Text>
               <Text style={styles.skillText}>

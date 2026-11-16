@@ -166,18 +166,37 @@ export const more: CaseStudy[] = [
   },
 ]
 
-export const personal: CaseStudy = {
-  title: "MERN Auth & Admin Dashboard",
-  tagline: "Full-stack app with secure auth and an admin panel",
-  client: "Personal Project",
-  meta: { label: "Type", value: "Open Source" },
-  overview: [
-    "Built stateless JWT authentication with bcrypt-hashed passwords.",
-    "Added role-based access control on top of a full admin dashboard.",
-    "Admins can view and delete registered users and contact form submissions.",
-  ],
-  stack: ["React", "Node.js", "Express.js", "MongoDB", "JWT", "TailwindCSS"],
-  image: "/images/projects/mern.jpg",
-  url: "https://mern-project-beta-six.vercel.app",
-  github: "https://github.com/Ahtishamkayani01/MERN-Project",
-}
+export const personal: CaseStudy[] = [
+  {
+    title: "AI Chat App",
+    tagline: "A full-stack AI chat app with streaming replies and saved conversations",
+    client: "Personal Project",
+    meta: { label: "Type", value: "Open Source" },
+    overview: [
+      "Replies stream in word by word over NDJSON, render as Markdown, and can be stopped partway through.",
+      "Conversation history saves to MongoDB and shows in a sidebar where you can rename or delete chats; every reply has thumbs up/down feedback, Copy and Regenerate.",
+      "Clear error states for rate limits, a busy AI service, network failures and bad keys, with Retry where it helps; cut-off replies are saved and marked incomplete.",
+      "Email and password accounts with bcrypt and a signed JWT in an httpOnly cookie; Next.js proxies /api to Express, so there's no CORS setup.",
+      "One provider layer for Gemini, Groq, OpenRouter and Ollama through the OpenAI-compatible API. Dark and light mode, and a slide-out sidebar on mobile.",
+    ],
+    stack: ["Next.js", "React", "TypeScript", "Node.js", "Express.js", "MongoDB", "JWT", "TailwindCSS", "Gemini API"],
+    image: "/images/projects/ai-chat.jpg",
+    url: "https://ai-chat-web-app-31ys.vercel.app/login",
+    github: "https://github.com/Ahtishamkayani01/ai-chat-web-app",
+  },
+  {
+    title: "MERN Auth & Admin Dashboard",
+    tagline: "Full-stack app with secure auth and an admin panel",
+    client: "Personal Project",
+    meta: { label: "Type", value: "Open Source" },
+    overview: [
+      "Built stateless JWT authentication with bcrypt-hashed passwords.",
+      "Added role-based access control on top of a full admin dashboard.",
+      "Admins can view and delete registered users and contact form submissions.",
+    ],
+    stack: ["React", "Node.js", "Express.js", "MongoDB", "JWT", "TailwindCSS"],
+    image: "/images/projects/mern.jpg",
+    url: "https://mern-project-beta-six.vercel.app",
+    github: "https://github.com/Ahtishamkayani01/MERN-Project",
+  },
+]

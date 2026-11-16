@@ -250,7 +250,11 @@ export function Projects() {
 
         <div className="mt-16 md:mt-24">
           <h3 className="font-mono text-xs uppercase tracking-[0.14em] text-stone mb-6">On the side</h3>
-          <Feature project={personal} index={featured.length + more.length} />
+          <div className="space-y-14 md:space-y-20">
+            {personal.map((p, i) => (
+              <Feature key={p.title} project={p} index={featured.length + more.length + i} />
+            ))}
+          </div>
         </div>
       </div>
     </section>

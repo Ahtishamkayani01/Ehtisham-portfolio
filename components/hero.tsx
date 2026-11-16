@@ -1,391 +1,218 @@
 "use client"
 
-import {
-  AnimatePresence,
-  animate,
-  motion,
-  useInView,
-  useMotionTemplate,
-  useMotionValue,
-  useReducedMotion,
-  useScroll,
-  useSpring,
-  useTransform,
-} from "framer-motion"
-import { useEffect, useRef, useState, type MouseEvent } from "react"
-import { ArrowRight, FileDown, Linkedin, Mail, MapPin, Phone } from "lucide-react"
-import Image from "next/image"
-import { useIsMobile } from "@/hooks/use-mobile"
+import dynamic from "next/dynamic"
+import { motion, useReducedMotion } from "framer-motion"
+import { ArrowDown, FileDown } from "lucide-react"
+
+// three.js is ~600kB; keep it out of the initial bundle and off the server.
+const Macropad = dynamic(() => import("@/components/three/macropad"), {
+  ssr: false,
+  loading: () => <div className="h-full w-full" />,
+})
 
 const ease = [0.22, 1, 0.36, 1] as const
 
-const rotatingWords = ["pixel-perfect UIs", "scalable Next.js apps", "smooth animations", "real-time dashboards"]
-
-const stats = [
-  { value: 5, suffix: "+", label: "Years Experience" },
-  { value: 10, suffix: "+", label: "Projects Shipped" },
-  { value: 60, suffix: "%", label: "Fewer Bugs via Reviews" },
+const shippedFor = [
+  "PayOn",
+  "Alpha Squad",
+  "MonkeyTilt",
+  "Plump",
+  "Prestige Mustang",
+  "EZ Oil Drain Valve",
+  "Foose Performance",
+  "Jess Performance",
 ]
 
-const marquee = [
-  "React",
-  "Next.js",
-  "TypeScript",
-  "TailwindCSS",
-  "Redux Toolkit",
-  "RTK Query",
-  "GraphQL",
-  "shadcn/ui",
-  "Framer Motion",
-  "Three.js",
-  "WebSockets",
-  "Node.js",
-]
-
-const chips = [
-  { label: "React", className: "-left-2 top-6 md:-left-6 md:top-10", delay: 0 },
-  { label: "Next.js", className: "right-0 -top-2 md:-right-4 md:top-4", delay: 0.6 },
-  { label: "TypeScript", className: "-left-4 top-[42%] md:-left-14", delay: 1.2 },
-  { label: "Tailwind", className: "right-0 top-[54%] md:top-auto md:-right-8 md:bottom-8", delay: 1.8 },
-]
-
-function SplitName({ text, delay, className }: { text: string; delay: number; className?: string }) {
+function Line({ children, delay }: { children: React.ReactNode; delay: number }) {
   return (
-    <span className={`inline-flex overflow-hidden pb-2 ${className ?? ""}`} aria-hidden>
-      {text.split("").map((ch, i) => (
-        <motion.span
-          key={i}
-          className="inline-block"
-          initial={{ y: "110%" }}
-          animate={{ y: 0 }}
-          transition={{ duration: 0.8, ease, delay: delay + i * 0.035 }}
-        >
-          {ch === " " ? " " : ch}
-        </motion.span>
-      ))}
+    <span className="block overflow-hidden pb-[0.1em] -mb-[0.1em]">
+      <motion.span
+        className="block"
+        initial={{ y: "105%" }}
+        animate={{ y: 0 }}
+        transition={{ duration: 0.9, ease, delay }}
+      >
+        {children}
+      </motion.span>
     </span>
   )
 }
 
-function RotatingWord() {
-  const [i, setI] = useState(0)
-  useEffect(() => {
-    const id = setInterval(() => setI((v) => (v + 1) % rotatingWords.length), 3000)
-    return () => clearInterval(id)
-  }, [])
+/** Hand-drawn loop under a word. Draws itself in once. */
+function Scribble({ delay }: { delay: number }) {
   return (
-    <span className="relative inline-grid overflow-hidden align-bottom">
-      {/* invisible sizer: keeps the box at the widest word so surrounding layout never shifts */}
-      <span aria-hidden className="invisible col-start-1 row-start-1 whitespace-nowrap">
-        {rotatingWords.reduce((a, b) => (b.length > a.length ? b : a))}
-      </span>
-      <AnimatePresence mode="wait" initial={false}>
-        <motion.span
-          key={rotatingWords[i]}
-          initial={{ y: "100%", opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          exit={{ y: "-100%", opacity: 0 }}
-          transition={{ duration: 0.45, ease }}
-          className="col-start-1 row-start-1 text-primary whitespace-nowrap"
-        >
-          {rotatingWords[i]}
-        </motion.span>
-      </AnimatePresence>
-    </span>
+    <svg
+      aria-hidden
+      viewBox="0 0 300 40"
+      preserveAspectRatio="none"
+      className="pointer-events-none absolute left-[-4%] -bottom-[0.05em] h-[0.32em] w-[108%] overflow-visible text-signal"
+    >
+      <motion.path
+        d="M4 26 C 60 12, 140 8, 210 14 S 300 26, 286 30 C 250 36, 120 38, 40 30"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="5"
+        strokeLinecap="round"
+        initial={{ pathLength: 0 }}
+        animate={{ pathLength: 1 }}
+        transition={{ duration: 1.1, ease: [0.65, 0, 0.35, 1], delay }}
+      />
+    </svg>
   )
 }
 
-function CountUp({ to, suffix }: { to: number; suffix: string }) {
-  const ref = useRef<HTMLSpanElement>(null)
-  const inView = useInView(ref, { once: true })
-  const [n, setN] = useState(0)
-  useEffect(() => {
-    if (!inView) return
-    const controls = animate(0, to, { duration: 1.6, ease: "easeOut", delay: 0.9, onUpdate: (v) => setN(Math.round(v)) })
-    return () => controls.stop()
-  }, [inView, to])
-  return (
-    <span ref={ref}>
-      {n}
-      {suffix}
-    </span>
-  )
-}
-
-function Portrait() {
-  const reduce = useReducedMotion()
-  const mx = useMotionValue(0)
-  const my = useMotionValue(0)
-  const rotateX = useSpring(useTransform(my, [-0.5, 0.5], reduce ? [0, 0] : [12, -12]), { stiffness: 150, damping: 18 })
-  const rotateY = useSpring(useTransform(mx, [-0.5, 0.5], reduce ? [0, 0] : [-12, 12]), { stiffness: 150, damping: 18 })
-
-  const onMove = (e: MouseEvent<HTMLDivElement>) => {
-    const r = e.currentTarget.getBoundingClientRect()
-    mx.set((e.clientX - r.left) / r.width - 0.5)
-    my.set((e.clientY - r.top) / r.height - 0.5)
-  }
-
+/** Pencil arrow + note pointing at the pad. */
+function PressMeNote() {
   return (
     <motion.div
-      initial={{ opacity: 0, scale: 0.85 }}
-      animate={{ opacity: 1, scale: 1 }}
-      transition={{ duration: 1, ease, delay: 0.4 }}
-      className="relative mb-12 lg:mb-0 flex justify-center lg:justify-end [perspective:1000px]"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ delay: 1.6, duration: 0.5 }}
+      className="pointer-events-none absolute left-5 top-0 sm:left-6 sm:top-4 lg:-left-6 lg:top-10 flex items-start gap-1 text-ink-2"
     >
-      <motion.div
-        onMouseMove={onMove}
-        onMouseLeave={() => {
-          mx.set(0)
-          my.set(0)
-        }}
-        style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
-        className="relative w-64 h-64 sm:w-72 sm:h-72 md:w-[22rem] md:h-[22rem]"
-      >
-        {/* glow */}
-        <div className="absolute -inset-10 rounded-full bg-primary/25 blur-3xl animate-pulse" />
-        {/* spinning conic ring */}
-        <div className="absolute -inset-[6px] rounded-full bg-[conic-gradient(from_0deg,transparent_0deg,var(--primary)_90deg,transparent_180deg,oklch(0.7_0.15_260)_270deg,transparent_360deg)] animate-[spin_6s_linear_infinite]" />
-        {/* dashed orbit */}
-        <div className="absolute -inset-8 rounded-full border border-dashed border-primary/25 animate-[spin_40s_linear_infinite_reverse]" />
-
-        <div className="absolute inset-0 rounded-full overflow-hidden bg-background ring-4 ring-background">
-          <Image src="/images/profile.png" alt="Ehtisham Nawaz Kiani" fill className="object-cover" priority />
-          <div className="absolute inset-0 bg-gradient-to-t from-background/40 to-transparent" />
-        </div>
-
-        {/* floating tech chips */}
-        {chips.map((c) => (
-          <motion.span
-            key={c.label}
-            style={{ transform: "translateZ(60px)" }}
-            initial={{ opacity: 0, scale: 0.6 }}
-            animate={reduce ? { opacity: 1, scale: 1 } : { opacity: 1, scale: 1, y: [0, -10, 0] }}
-            transition={{
-              opacity: { delay: 1 + c.delay * 0.3, duration: 0.5 },
-              scale: { delay: 1 + c.delay * 0.3, duration: 0.5 },
-              y: { delay: c.delay, duration: 4, repeat: Infinity, ease: "easeInOut" },
-            }}
-            className={`absolute ${c.className} z-10 rounded-full border border-white/10 bg-card/90 md:bg-card/80 md:backdrop-blur-md px-3.5 py-1.5 text-xs font-mono text-foreground shadow-lg shadow-black/40`}
-          >
-            <span className="mr-1.5 inline-block h-1.5 w-1.5 rounded-full bg-primary align-middle" />
-            {c.label}
-          </motion.span>
-        ))}
-
-        {/* code card */}
-        <motion.div
-          style={{ transform: "translateZ(80px)" }}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.4, duration: 0.7, ease }}
-          className="absolute -bottom-10 left-1/2 -translate-x-1/2 md:left-auto md:translate-x-0 md:-left-16 z-20 w-56 rounded-xl border border-white/10 bg-[#0b0f14]/95 md:bg-[#0b0f14]/90 md:backdrop-blur-md p-3 font-mono text-[11px] leading-relaxed shadow-2xl shadow-black/60"
-        >
-          <div className="mb-2 flex gap-1.5">
-            <span className="h-2 w-2 rounded-full bg-[#ff5f57]" />
-            <span className="h-2 w-2 rounded-full bg-[#febc2e]" />
-            <span className="h-2 w-2 rounded-full bg-[#28c840]" />
-          </div>
-          <p>
-            <span className="text-violet-400">const</span> <span className="text-sky-300">dev</span> = {"{"}
-          </p>
-          <p className="pl-3">
-            role: <span className="text-emerald-300">&quot;Frontend Lead&quot;</span>,
-          </p>
-          <p className="pl-3">
-            loves: <span className="text-emerald-300">&quot;clean UI&quot;</span>,
-          </p>
-          <p className="pl-3">
-            coffee: <span className="text-amber-300">Infinity</span>
-          </p>
-          <p>{"}"}</p>
-        </motion.div>
-      </motion.div>
+      <span className="font-serif italic text-xl sm:text-2xl leading-none -rotate-6 origin-left">
+        go on,
+        <br />
+        <span className="sm:hidden">tap a key</span>
+        <span className="hidden sm:inline">press a key</span>
+      </span>
+      <svg viewBox="0 0 90 70" className="mt-6 h-12 w-16 sm:h-14 sm:w-20 overflow-visible" aria-hidden>
+        <motion.path
+          d="M4 8 C 30 4, 62 14, 72 46"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          initial={{ pathLength: 0 }}
+          animate={{ pathLength: 1 }}
+          transition={{ delay: 1.8, duration: 0.7, ease: "easeInOut" }}
+        />
+        <motion.path
+          d="M60 38 L 72 48 L 80 33"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          initial={{ pathLength: 0 }}
+          animate={{ pathLength: 1 }}
+          transition={{ delay: 2.4, duration: 0.3 }}
+        />
+      </svg>
     </motion.div>
   )
 }
 
 export function Hero() {
-  const ref = useRef<HTMLElement>(null)
-  const reduceMotion = useReducedMotion()
-  const isMobile = useIsMobile()
-  // Scroll-linked parallax is janky on phones (address-bar resizes + re-rasterising a scaled layer), so desktop only.
-  const reduce = reduceMotion || isMobile
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] })
-  const y = useTransform(scrollYProgress, [0, 1], reduce ? [0, 0] : [0, 220])
-  const opacity = useTransform(scrollYProgress, [0, 0.8], reduce ? [1, 1] : [1, 0])
-  const scale = useTransform(scrollYProgress, [0, 1], reduce ? [1, 1] : [1, 0.92])
-
-  // mouse-follow spotlight
-  const sx = useMotionValue(-1000)
-  const sy = useMotionValue(-1000)
-  const spotlight = useMotionTemplate`radial-gradient(650px circle at ${sx}px ${sy}px, oklch(0.75 0.15 180 / 0.12), transparent 70%)`
+  const reduce = useReducedMotion() ?? false
 
   return (
-    <section
-      ref={ref}
-      onMouseMove={(e) => {
-        const r = e.currentTarget.getBoundingClientRect()
-        sx.set(e.clientX - r.left)
-        sy.set(e.clientY - r.top)
-      }}
-      className="relative min-h-svh flex flex-col justify-center pt-24 md:pt-28 pb-6 md:pb-8 overflow-hidden"
-    >
-      <motion.div aria-hidden style={{ background: spotlight }} className="pointer-events-none absolute inset-0" />
+    <section className="relative lg:min-h-[min(100svh,52rem)] px-5 md:px-10 pt-24 md:pt-28 pb-6 md:pb-8 flex flex-col overflow-hidden">
+      {/* warm pool of light behind the pad, like a desk lamp */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute right-[-10%] top-[8%] h-[80vh] w-[60vw] rounded-full bg-[radial-gradient(closest-side,rgba(255,250,240,0.9),transparent)]"
+      />
 
-      <motion.div style={{ y, opacity, scale }} className="relative max-w-6xl mx-auto w-full px-6">
-        <div className="grid lg:grid-cols-[1.25fr_1fr] gap-14 lg:gap-16 items-center">
-          <div>
-            <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, ease }}
-              className="mb-6 flex flex-wrap items-center gap-3"
-            >
-              <span className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-xs font-medium text-primary">
-                <span className="relative flex h-2 w-2">
-                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-75" />
-                  <span className="relative inline-flex h-2 w-2 rounded-full bg-primary" />
-                </span>
-                Open to new opportunities
+      <div className="relative mx-auto w-full max-w-[90rem] grid flex-1 lg:grid-cols-12 gap-y-4 lg:gap-x-8 items-center">
+        <div className="lg:col-span-7 relative z-10">
+          <motion.div
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="mb-8 flex flex-wrap items-center gap-x-5 gap-y-2 font-mono text-[11px] uppercase tracking-[0.14em] text-stone"
+          >
+            <span className="inline-flex items-center gap-2 rounded-full border border-ink/15 bg-card/70 py-1.5 pl-2.5 pr-3 text-ink">
+              <span className="h-2 w-2 rounded-full bg-[#3f9a4f] shadow-[0_0_0_3px_rgba(63,154,79,0.18)]" />
+              Available for new work
+            </span>
+            <span>Senior frontend engineer · React, Next.js, TypeScript</span>
+          </motion.div>
+
+          <h1 className="font-serif text-[clamp(3.3rem,9vw,9.5rem)] leading-[0.88] tracking-[-0.025em] text-ink">
+            <Line delay={0.1}>I build the part</Line>
+            <Line delay={0.2}>of the web you</Line>
+            <Line delay={0.3}>
+              <span className="relative inline-block">
+                <em className="text-signal pr-[0.04em]">touch.</em>
+                <Scribble delay={1} />
               </span>
-              <span className="inline-flex items-center gap-1.5 text-xs text-muted-foreground">
-                <MapPin className="w-3.5 h-3.5" /> Islamabad, Pakistan
-              </span>
-            </motion.div>
+            </Line>
+          </h1>
 
-            <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.15 }}
-              className="font-mono text-sm text-muted-foreground mb-3"
+          <motion.p
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, ease, delay: 0.6 }}
+            className="mt-9 text-[1.08rem] leading-relaxed text-ink-2 max-w-[34rem]"
+          >
+            I&apos;m Ehtisham. I&apos;ve spent five-plus years on React and Next.js: car-parts storefronts, a gaming platform,
+            and now the ordering and payment screens restaurants run on at{" "}
+            <a
+              href="https://payon.app/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-ink underline decoration-signal decoration-2 underline-offset-4 hover:text-signal transition-colors"
             >
-              Hi, I&apos;m
-            </motion.p>
+              PayOn
+            </a>
+            .
+          </motion.p>
 
-            <h1 className="font-black tracking-tight leading-[0.92] text-5xl sm:text-6xl lg:text-7xl">
-              <span className="sr-only">Ehtisham Nawaz Kiani</span>
-              <SplitName text="Ehtisham" delay={0.2} className="text-foreground" />
-              <br />
-              <SplitName
-                text="Nawaz Kiani"
-                delay={0.45}
-                className="bg-[linear-gradient(110deg,var(--primary),oklch(0.85_0.12_200),oklch(0.7_0.15_260),var(--primary))] bg-[length:200%_auto] bg-clip-text text-transparent animate-[hero-shimmer_6s_linear_infinite]"
-              />
-            </h1>
-
-            <motion.h2
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.9, duration: 0.6, ease }}
-              className="mt-6 text-xl md:text-2xl font-medium text-foreground/90"
-            >
-              Senior Frontend Developer building <RotatingWord />
-            </motion.h2>
-
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 1.05, duration: 0.6, ease }}
-              className="mt-5 text-muted-foreground text-base md:text-lg leading-relaxed max-w-xl"
-            >
-              5 years of crafting accessible, high-performance web experiences with React, Next.js and modern
-              JavaScript, from e-commerce storefronts to real-time SaaS dashboards.
-            </motion.p>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 1.2, duration: 0.6, ease }}
-              className="mt-9 flex flex-wrap items-center gap-4"
-            >
-              <a
-                href="#projects"
-                className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full bg-primary px-7 py-3.5 text-sm font-semibold text-primary-foreground shadow-[0_0_40px_-8px_var(--primary)] transition-transform hover:scale-[1.03]"
-              >
-                <span className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/40 to-transparent transition-transform duration-700 group-hover:translate-x-full" />
-                View My Work
-                <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-              </a>
-              <a
-                href="/api/cv"
-                className="inline-flex items-center gap-2 rounded-full border border-white/15 px-7 py-3.5 text-sm font-semibold text-foreground hover:border-primary hover:text-primary transition-colors"
-              >
-                <FileDown className="w-4 h-4" />
-                Download CV
-              </a>
-              <div className="flex items-center gap-2 sm:ml-2">
-                {[
-                  { href: "https://www.linkedin.com/in/ehtisham-nawaz-kiyani-704a98173", icon: Linkedin, label: "LinkedIn", external: true },
-                  { href: "mailto:ahtishamkayani01@gmail.com", icon: Mail, label: "Email" },
-                  { href: "tel:+923035957991", icon: Phone, label: "Phone" },
-                ].map(({ href, icon: Icon, label, external }) => (
-                  <a
-                    key={label}
-                    href={href}
-                    aria-label={label}
-                    {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                    className="p-3 rounded-full border border-white/10 text-muted-foreground hover:text-primary hover:border-primary/50 hover:-translate-y-1 transition-all"
-                  >
-                    <Icon className="w-4 h-4" />
-                  </a>
-                ))}
-              </div>
-            </motion.div>
-
-            <motion.dl
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 1.35, duration: 0.6, ease }}
-              className="mt-12 grid grid-cols-3 max-w-lg divide-x divide-white/10 rounded-2xl border border-white/10 bg-card/60 md:bg-card/40 md:backdrop-blur"
-            >
-              {stats.map((s) => (
-                <div key={s.label} className="px-4 py-4 text-center">
-                  <dt className="sr-only">{s.label}</dt>
-                  <dd className="text-2xl md:text-3xl font-black text-foreground">
-                    <CountUp to={s.value} suffix={s.suffix} />
-                  </dd>
-                  <p className="mt-1 text-[11px] uppercase tracking-wider text-muted-foreground">{s.label}</p>
-                </div>
-              ))}
-            </motion.dl>
-          </div>
-
-          <Portrait />
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, ease, delay: 0.75 }}
+            className="mt-9 flex flex-wrap items-center gap-4"
+          >
+            <a href="#work" className="inline-flex keycap keycap-signal text-sm font-semibold">
+              See the work
+              <ArrowDown className="h-4 w-4" />
+            </a>
+            <a href="/api/cv" className="inline-flex keycap text-sm font-semibold">
+              <FileDown className="h-4 w-4" />
+              Résumé
+              <kbd>PDF</kbd>
+            </a>
+          </motion.div>
         </div>
-      </motion.div>
 
-      {/* tech marquee */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.96 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1, delay: 0.15, ease }}
+          className="lg:col-span-5 relative mt-4 sm:mt-0 h-[350px] sm:h-[460px] lg:h-[min(600px,48vw)] -mx-5 lg:mx-0 lg:-mr-10"
+        >
+          <div className="absolute inset-x-0 top-8 -bottom-6 sm:inset-0">
+            <Macropad reduceMotion={reduce} />
+          </div>
+          <PressMeNote />
+        </motion.div>
+      </div>
+
+      {/* ruler + who I've shipped for */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 1.6, duration: 0.8 }}
-        className="relative mt-12 md:mt-16 border-y border-white/5 bg-card/20 py-4 [mask-image:linear-gradient(90deg,transparent,black_15%,black_85%,transparent)]"
+        transition={{ delay: 1, duration: 0.6 }}
+        className="relative mx-auto w-full max-w-[90rem] mt-4 md:mt-8"
       >
-        <div className="flex w-max animate-[hero-marquee_35s_linear_infinite] gap-12 hover:[animation-play-state:paused]">
-          {[...marquee, ...marquee].map((t, i) => (
-            <span key={i} className="flex items-center gap-12 text-sm font-mono uppercase tracking-[0.2em] text-muted-foreground/70">
-              {t}
-              <span className="text-primary">✦</span>
-            </span>
-          ))}
+        <div
+          aria-hidden
+          className="h-3 border-t border-ink/25 [background-image:repeating-linear-gradient(90deg,rgba(22,21,19,0.3)_0_1px,transparent_1px_12px),repeating-linear-gradient(90deg,rgba(22,21,19,0.45)_0_1px,transparent_1px_120px)] [background-size:100%_6px,100%_12px] bg-no-repeat"
+        />
+        <div className="mt-4 flex flex-col md:flex-row md:items-baseline gap-x-8 gap-y-2">
+          <span className="shrink-0 font-mono text-[11px] uppercase tracking-[0.14em] text-stone">Shipped for</span>
+          <ul className="flex flex-wrap gap-x-5 gap-y-1 font-serif text-xl md:text-2xl text-ink-2">
+            {shippedFor.map((name, i) => (
+              <li key={name} className="flex items-baseline gap-5">
+                {name}
+                {i < shippedFor.length - 1 ? <span className="text-signal text-base">/</span> : null}
+              </li>
+            ))}
+          </ul>
         </div>
       </motion.div>
-
-      {/* scroll indicator */}
-      <motion.a
-        href="#about"
-        aria-label="Scroll to about section"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.8 }}
-        className="mx-auto mt-6 flex h-10 w-6 justify-center rounded-full border border-white/20 pt-2"
-      >
-        <motion.span
-          animate={reduce ? {} : { y: [0, 12, 0], opacity: [1, 0.2, 1] }}
-          transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
-          className="h-2 w-1 rounded-full bg-primary"
-        />
-      </motion.a>
     </section>
   )
 }

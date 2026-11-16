@@ -10,17 +10,18 @@ import {
 
 const styles = StyleSheet.create({
   page: {
-    padding: 25,
+    paddingVertical: 20,
+    paddingHorizontal: 25,
     fontFamily: "Helvetica",
     fontSize: 8,
     color: "#1a1a2e",
     backgroundColor: "#ffffff",
   },
   header: {
-    marginBottom: 10,
+    marginBottom: 7,
     borderBottomWidth: 2,
     borderBottomColor: "#1a1a2e",
-    paddingBottom: 8,
+    paddingBottom: 6,
   },
   name: {
     fontSize: 22,
@@ -55,7 +56,7 @@ const styles = StyleSheet.create({
     marginRight: 2,
   },
   section: {
-    marginBottom: 8,
+    marginBottom: 6,
   },
   sectionTitle: {
     fontSize: 9,
@@ -64,7 +65,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: "#1a1a2e",
     paddingBottom: 2,
-    marginBottom: 5,
+    marginBottom: 4,
     textTransform: "uppercase",
     letterSpacing: 0.5,
   },
@@ -74,7 +75,7 @@ const styles = StyleSheet.create({
     color: "#444444",
   },
   experienceItem: {
-    marginBottom: 6,
+    marginBottom: 4,
   },
   jobHeader: {
     flexDirection: "row",
@@ -110,7 +111,7 @@ const styles = StyleSheet.create({
   bulletText: {
     flex: 1,
     fontSize: 7.5,
-    lineHeight: 1.3,
+    lineHeight: 1.25,
     color: "#444444",
   },
   twoColumn: {
@@ -118,13 +119,13 @@ const styles = StyleSheet.create({
     gap: 12,
   },
   leftColumn: {
-    flex: 2,
+    flex: 1.4,
   },
   rightColumn: {
-    flex: 1,
+    flex: 1.15,
   },
   skillCategory: {
-    marginBottom: 3,
+    marginBottom: 2.5,
   },
   skillCategoryTitle: {
     fontSize: 7.5,
@@ -150,7 +151,7 @@ const styles = StyleSheet.create({
     color: "#666666",
   },
   projectBlock: {
-    marginBottom: 5,
+    marginBottom: 4,
   },
   projectTitle: {
     fontSize: 8,
@@ -230,6 +231,30 @@ function BulletItem({ text }: { text: string }) {
   )
 }
 
+const skills: [string, string][] = [
+  ["Languages", "JavaScript (ES6+), TypeScript, HTML5, CSS3, Sass"],
+  ["Frameworks & Libraries", "React.js, Next.js, Redux, Redux Toolkit, React Query, Vue.js, Three.js, React Three Fiber, TailwindCSS, Styled Components, Material-UI, Bootstrap"],
+  ["Backend & APIs", "Node.js, Express.js, Go (Golang), MongoDB, RESTful API design, WebSockets, Axios"],
+  ["Performance", "SSR/SSG, code splitting, lazy loading, memoization, image optimization, CDN/CloudFront caching, Core Web Vitals tuning, bundle analysis (Webpack Bundle Analyzer)"],
+  ["Architecture", "Micro Frontends, Monorepo setups, Design Systems, Reusable UI Architecture"],
+  ["Testing & Code Quality", "Jest, Cypress, ESLint, Prettier, Husky pre-commit hooks"],
+  ["CI/CD & Tools", "GitHub Actions, Git (GitFlow, trunk-based), Webpack, Babel, Postman, Chrome DevTools"],
+  ["AI & Productivity", "Claude Code, GitHub Copilot, AI-assisted code generation and review, prompt engineering for dev workflows"],
+  ["Project Management & Design", "Agile/Scrum, Jira, Trello, Asana, Confluence, Figma, Adobe XD"],
+]
+
+const projects: { name: string; url?: string; note?: string; desc: string }[] = [
+  { name: "PayOn", url: "https://payon.app/", desc: "Official website. Next.js, React.js, responsive mobile-first; presents order, payment and table-flow features; SSR + image optimization for SEO." },
+  { name: "AlphaSquad", url: "https://www.alphasquad.studio/", desc: "Agency website. Next.js, TailwindCSS, SSR + image optimization for Core Web Vitals; reusable animated UI components." },
+  { name: "Monkey Tilt", url: "https://monkeytilt.com/", desc: "Led full lifecycle. Custom Next.js middleware for performance & security; Firebase auth, real-time DB, cloud functions; Redux; SSR for scale." },
+  { name: "EZ Oil Drain Valve", url: "https://ezoildrainvalve.com/", desc: "Led e-commerce frontend. Next.js SSR listing/detail/checkout; Saleor catalog, inventory & orders; Redux Toolkit filtering, search, cart; CloudFront caching." },
+  { name: "Prestige Mustang", url: "https://prestigemustang.com/", desc: "Mustang parts store. Catalog, search & filtering with TailwindCSS; SSR + image optimization; social feeds and newsletter flows." },
+  { name: "Foose Performance", url: "https://fooseperf.com/", desc: "Diesel truck shop & parts store. Cummins, Duramax, Powerstroke catalog; parts search & filtering; code splitting, lazy loading." },
+  { name: "Plump", url: "https://plump.com/", desc: "Responsive React.js UI with reusable component library; REST APIs with Redux; cross-browser, mobile-first." },
+  { name: "Jess Performance", url: "https://jessperformance.com/", desc: "Diesel performance store. Power package configurator, parts browsing; Redux Toolkit cart & checkout; Saleor GraphQL catalog." },
+  { name: "Repair Management System", note: "Confidential (NDA)", desc: "Internal & customer apps in 3 weeks: embeddable tracking widget, auto ticket IDs, color-coded tag grouping & reordering of 1000+ tickets, analytics charts." },
+]
+
 function CVDocument() {
   return (
     <Document>
@@ -238,31 +263,27 @@ function CVDocument() {
         {/* ── Header ── */}
         <View style={styles.header}>
           <Text style={styles.name}>EHTISHAM NAWAZ KIANI</Text>
-          <Text style={styles.title}>FRONTEND ENGINEER</Text>
-          
-          {/* Contact Row 1 - Email and Phone */}
+          <Text style={styles.title}>Senior Frontend Engineer | React.js | Next.js | TypeScript</Text>
           <View style={styles.contactRow}>
-            <Text style={styles.contactItem}>Email:</Text>
-            <Link src="mailto:ahtishamkayani01@gmail.com" style={styles.contactLink}>
-              ahtishamkayani01@gmail.com
-            </Link>
-            <Text style={styles.contactItem}>| Phone: +923035957991 | Location: Islamabad, Pakistan</Text>
+            <Text style={styles.contactItem}>Islamabad, Pakistan | +92 303 5957991 |</Text>
+            <Link src="mailto:ahtishamkayani01@gmail.com" style={styles.contactLink}>ahtishamkayani01@gmail.com</Link>
+            <Text style={styles.contactItem}>|</Text>
+            <Link src="https://github.com/Ahtishamkayani01" style={styles.contactLink}>github.com/Ahtishamkayani01</Link>
           </View>
-          
-          {/* Contact Row 2 - LinkedIn */}
           <View style={styles.contactRow}>
-            <Text style={styles.contactItem}>LinkedIn:</Text>
             <Link src="https://www.linkedin.com/in/ehtisham-nawaz-kiyani-704a98173/" style={styles.contactLink}>
               linkedin.com/in/ehtisham-nawaz-kiyani-704a98173
             </Link>
+            <Text style={styles.contactItem}>| Portfolio:</Text>
+            <Link src="https://ehtisham-portfolio-eta.vercel.app" style={styles.contactLink}>ehtisham-portfolio-eta.vercel.app</Link>
           </View>
         </View>
 
         {/* ── Summary ── */}
         <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Summary</Text>
+          <Text style={styles.sectionTitle}>Professional Summary</Text>
           <Text style={styles.summaryText}>
-            Results-driven Frontend Developer with 5 years of experience specializing in crafting responsive, scalable web applications using modern JavaScript frameworks. Demonstrated expertise in React.js, Next.js, and UI/UX design principles, with a proven track record of enhancing user engagement and optimizing application performance. Adept at collaborating with cross-functional teams to deliver high-quality projects on time and within budget.
+            Senior Frontend Engineer with 5+ years building responsive, scalable, high-performance web applications with React.js, Next.js and TypeScript. Led frontend teams, architected reusable component libraries and design systems, and integrated RESTful and WebSocket APIs for real-time products. Experienced in performance optimization (SSR/SSG, code splitting, Core Web Vitals), micro-frontend architecture and CI/CD automation. Use AI developer tools (Claude Code, GitHub Copilot) to speed up development, testing and code review. Strong collaborator with design, backend and product teams, focused on reliable, user-centered software.
           </Text>
         </View>
 
@@ -272,81 +293,45 @@ function CVDocument() {
 
           <View style={styles.experienceItem}>
             <View style={styles.jobHeader}>
-              <Text style={styles.jobTitle}>Senior Frontend Engineer & Team Lead — PayOn</Text>
+              <Text style={styles.jobTitle}>Senior Frontend Engineer — PayOn</Text>
               <Text style={styles.jobDate}>Jun 2026 – Present</Text>
             </View>
-            <Text style={styles.company}>Remote | payon.app</Text>
-            <BulletItem text="Building the frontend of PayOn, an intelligent transactional orchestration platform redefining how dining operations manage orders, payments, and table flows." />
-            <BulletItem text="Architecting scalable React.js/Next.js interfaces that transform complex real-time transactional data into intuitive staff-facing dashboards and guest-facing payment flows." />
-            <BulletItem text="Implementing live order management, bill-splitting, and payment orchestration features across a multitenant SaaS platform serving restaurants and hospitality venues." />
-            <BulletItem text="Collaborating with backend and product teams to define API contracts and data models for real-time WebSocket-driven order and payment events." />
-            <BulletItem text="Establishing frontend standards, component architecture, and CI/CD practices for a greenfield product in a fast-moving startup environment." />
+            <Text style={styles.company}>Remote | Transactional orchestration platform for the HoReCa (Hotel, Restaurant, Café) industry</Text>
+            <BulletItem text="Building the frontend of PayOn, redefining how dining operations manage orders, payments and table flows." />
+            <BulletItem text="Architecting React.js/Next.js staff dashboards and guest payment flows from complex real-time data: live orders, bill-splitting and payment orchestration across a multitenant SaaS for restaurants and hospitality venues." />
+            <BulletItem text="Defining API contracts and data models with backend and product for real-time WebSocket order and payment events; establishing frontend standards, component architecture and CI/CD for a greenfield product." />
           </View>
 
           <View style={styles.experienceItem}>
             <View style={styles.jobHeader}>
               <Text style={styles.jobTitle}>Lead Frontend Developer — Alpha Squad</Text>
-              <Text style={styles.jobDate}>02/2022 – May 2026</Text>
+              <Text style={styles.jobDate}>Feb 2023 – May 2026</Text>
             </View>
             <Text style={styles.company}>Islamabad, Pakistan</Text>
-            <BulletItem text="Led a team of frontend developers, providing mentorship, task assignments, and daily progress tracking to ensure timely project delivery." />
-            <BulletItem text="Spearheaded the development of reusable UI components, improving code maintainability by 35%." />
-            <BulletItem text="Integrated third-party APIs to enhance application functionality, reducing development time by 30%." />
-            <BulletItem text="Conducted code reviews and implemented best practices, resulting in an almost 60% reduction in bugs and improved code quality." />
-            <BulletItem text="Optimized app performance by leveraging advanced React hooks like useMemo and useCallback, leading to reduction in load times." />
-            <BulletItem text="Collaborated with back-end teams to implement efficient API integrations, ensuring seamless data flow across applications." />
-            <BulletItem text="Facilitated daily stand-ups and sprint planning meetings, ensuring alignment with project goals and timelines." />
+            <BulletItem text="Led a team of frontend engineers: mentorship, task assignment, daily progress tracking and Agile ceremonies (stand-ups, sprint planning, retrospectives) for on-time delivery." />
+            <BulletItem text="Spearheaded a reusable UI component library across projects; implemented micro-frontend architecture and monorepos for independently deployable modules." />
+            <BulletItem text="Optimized performance with useMemo, useCallback, code splitting and lazy loading, reducing load times and improving Core Web Vitals." />
+            <BulletItem text="Established code reviews with ESLint, Prettier and Husky pre-commit hooks, achieving a major reduction in production bugs; designed RESTful API integrations with backend teams." />
+            <BulletItem text="Used AI developer tools (Claude Code, GitHub Copilot) for code generation, automated testing and code review, boosting team productivity." />
           </View>
 
           <View style={styles.experienceItem}>
             <View style={styles.jobHeader}>
               <Text style={styles.jobTitle}>Frontend Developer — Alpha Squad</Text>
-              <Text style={styles.jobDate}>11/2021 – 02/2022</Text>
+              <Text style={styles.jobDate}>Nov 2021 – Feb 2023</Text>
             </View>
             <Text style={styles.company}>Islamabad, Pakistan</Text>
-            <BulletItem text="Maintained and developed web applications using Next.js and modern CSS frameworks." />
-            <BulletItem text="Created a library of reusable React components, accelerating project timelines by 15%." />
-            <BulletItem text="Led the migration of legacy codebases to modern React practices, improving performance and reducing technical debt." />
-            <BulletItem text="Developed custom UI solutions tailored to client needs, contributing to a 20% increase in customer satisfaction." />
+            <BulletItem text="Built and maintained Next.js/React.js apps with TailwindCSS and Styled Components; created a reusable React component library that standardized UI patterns and sped up timelines." />
+            <BulletItem text="Migrated legacy codebases to modern React (hooks, functional components), reducing technical debt; built custom client UI that measurably improved customer satisfaction." />
           </View>
         </View>
 
-        {/* ── Education ── */}
-        <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Education</Text>
-          <View style={styles.educationItem}>
-            <View style={styles.jobHeader}>
-              <Text style={styles.degree}>Bachelor of Software Engineering — Riphah International University</Text>
-              <Text style={styles.jobDate}>09/2018 – 09/2022</Text>
-            </View>
-            <Text style={styles.school}>Islamabad, Pakistan</Text>
-          </View>
-        </View>
-
-        {/* ── Two Column: Skills + Right Panel ── */}
+        {/* ── Two Column: Skills + Projects ── */}
         <View style={styles.twoColumn}>
           <View style={styles.leftColumn}>
-
-            {/* Technical Skills */}
             <View style={styles.section}>
               <Text style={styles.sectionTitle}>Technical Skills</Text>
-              {[
-                ["Programming Languages", "JavaScript (ES6+), TypeScript, HTML5, CSS3, Sass"],
-                ["Also Familiar With", "Node.js, Express.js, MongoDB, Go (Golang) — WebSocket-based chat apps, REST APIs, CRUD operations with MongoDB"],
-                ["Frameworks & Libraries", "React.js, Next.js, Three.js, React Three Fiber, Redux, Redux Toolkit, React Query, Vue.js, Styled Components, TailwindCSS, Material-UI, Bootstrap"],
-                ["State Management", "Redux, Context API, React Query"],
-                ["APIs", "RESTful APIs, Axios, WebSockets"],
-                ["Automation & Code Quality", "ESLint, Husky, Prettier, pre-commit hooks"],
-                ["CI/CD & Release Management", "GitHub Actions, CI/CD pipelines, Git branching workflows (GitFlow, trunk-based)"],
-                ["Testing", "Jest, Cypress"],
-                ["Build Tools", "Webpack, Babel, Gulp, Grunt"],
-                ["Architecture", "Micro Frontends, Mono Repo setups, Design Systems, Reusable UI Architecture"],
-                ["Collaboration Tools", "Slack, Microsoft Teams, Zoom"],
-                ["API & Development Tools", "Postman, Chrome DevTools"],
-                ["Version Control", "Git, GitHub"],
-                ["Project Management", "Agile/Scrum, Jira, Trello, Asana, Confluence"],
-                ["Design & Prototyping", "Figma, Adobe XD"],
-              ].map(([label, value]) => (
+              {skills.map(([label, value]) => (
                 <View key={label} style={styles.skillCategory}>
                   <Text style={styles.skillCategoryTitle}>{label}</Text>
                   <Text style={styles.skillText}>{value}</Text>
@@ -354,67 +339,61 @@ function CVDocument() {
               ))}
             </View>
 
-          </View>
-          <View style={styles.rightColumn}>
+            <View style={styles.section}>
+              <Text style={styles.sectionTitle}>Education</Text>
+              <View style={styles.jobHeader}>
+                <Text style={styles.degree}>Bachelor of Software Engineering — Riphah International University</Text>
+              </View>
+              <Text style={styles.school}>Islamabad, Pakistan | Sep 2018 – Sep 2022</Text>
+            </View>
 
-            {/* Professional Projects */}
+            <View style={styles.section}>
+              <Text style={styles.sectionTitle}>Personal Project</Text>
+              <View style={styles.personalProjectBlock}>
+                <View style={styles.personalProjectHeader}>
+                  <Text style={styles.personalProjectTitle}>MERN Authentication & Admin Dashboard</Text>
+                </View>
+                <View style={{ flexDirection: "row", gap: 4, marginBottom: 2, flexWrap: "wrap" }}>
+                  <Link src="https://mern-project-beta-six.vercel.app" style={styles.projectLink}>Live Demo</Link>
+                  <Text style={{ fontSize: 7, color: "#999" }}>|</Text>
+                  <Link src="https://github.com/Ahtishamkayani01/MERN-Project" style={styles.projectLink}>GitHub</Link>
+                </View>
+                <BulletItem text="bcrypt password hashing, stateless JWT auth and role-based access control across React and Express." />
+                <BulletItem text="Admin dashboard for users and contact submissions, with protected routes on frontend and backend." />
+              </View>
+            </View>
+          </View>
+
+          <View style={styles.rightColumn}>
             <View style={styles.section}>
               <Text style={styles.sectionTitle}>Professional Projects</Text>
-
-              {[
-                { name: "EZ Oil Drain Valve", url: "https://ezoildrainvalve.com/", desc: "E-commerce. Next.js SSR, Saleor APIs, Redux Toolkit." },
-                { name: "Prestige Mustang", url: "https://prestigemustang.com/", desc: "Mustang parts e-commerce. Advanced filtering, SSR optimization." },
-                { name: "Monkey Tilt", url: "https://monkeytilt.com/", desc: "Online gaming platform. Next.js middleware, Firebase auth." },
-                { name: "Plump", url: "https://plump.com/", desc: "Web platform with reusable component library, REST APIs." },
-                { name: "Foose Performance", url: "https://fooseperf.com/", desc: "Diesel truck parts store. Product catalog, code splitting." },
-                { name: "Jess Performance", url: "https://jessperformance.com/", desc: "Performance parts e-commerce. Configurator, Redux Toolkit." },
-              ].map((p) => (
+              {projects.map((p) => (
                 <View key={p.name} style={styles.projectBlock}>
                   <View style={{ flexDirection: "row", gap: 4, alignItems: "center", marginBottom: 1, flexWrap: "wrap" }}>
                     <Text style={styles.projectTitle}>{p.name}</Text>
-                    <Link src={p.url} style={styles.projectLink}>{p.url.replace("https://", "")}</Link>
+                    {p.url ? (
+                      <Link src={p.url} style={styles.projectLink}>{p.url.replace("https://", "").replace("www.", "")}</Link>
+                    ) : (
+                      <Text style={{ fontSize: 7, color: "#888888" }}>{p.note}</Text>
+                    )}
                   </View>
                   <Text style={styles.skillText}>{p.desc}</Text>
                 </View>
               ))}
             </View>
 
-            {/* Personal Project - Shortened for one page */}
+
             <View style={styles.section}>
-              <Text style={styles.sectionTitle}>Personal Project</Text>
-
-              <View style={styles.personalProjectBlock}>
-                <View style={styles.personalProjectHeader}>
-                  <Text style={styles.personalProjectTitle}>MERN Stack Auth & Admin Dashboard</Text>
-                </View>
-                <View style={{ flexDirection: "row", gap: 4, marginBottom: 2, flexWrap: "wrap" }}>
-                  <Link src="https://mern-project-beta-six.vercel.app" style={styles.projectLink}>
-                    Live Demo
-                  </Link>
-                  <Text style={{ fontSize: 7, color: "#999" }}>|</Text>
-                  <Link src="https://github.com/Ahtishamkayani01/MERN-Project" style={styles.projectLink}>
-                    Github
-                  </Link>
-                </View>
-                <BulletItem text="Full-stack MERN with JWT auth (bcrypt hashing) & RBAC on frontend/backend." />
-                <BulletItem text="Admin dashboard: view/delete users & contact submissions." />
-                <BulletItem text="Deployed on Vercel (frontend + serverless backend)." />
-              </View>
+              <Text style={styles.sectionTitle}>Additional Information</Text>
+              <Text style={styles.skillText}>
+                <Text style={{ fontFamily: "Helvetica-Bold", color: "#1a1a2e" }}>Languages: </Text>
+                English (Full Professional Proficiency), Urdu (Native)
+              </Text>
+              <Text style={styles.skillText}>
+                <Text style={{ fontFamily: "Helvetica-Bold", color: "#1a1a2e" }}>Activities: </Text>
+                Contributed to the launch of multiple high-impact client projects; active in tech meetups and frontend workshops.
+              </Text>
             </View>
-
-            {/* Languages */}
-            <View style={styles.section}>
-              <Text style={styles.sectionTitle}>Languages</Text>
-              <View style={styles.languageItem}>
-                <Text style={{ fontFamily: "Helvetica-Bold", color: "#1a1a2e" }}>English</Text>
-                <Text style={{ color: "#666666" }}>Full Professional</Text>
-              </View>
-              <View style={styles.languageItem}>
-                <Text style={{ fontFamily: "Helvetica-Bold", color: "#1a1a2e" }}>Urdu</Text>
-                <Text style={{ color: "#666666" }}>Full Professional</Text>
-              </View>
-            </View>
-
           </View>
         </View>
 

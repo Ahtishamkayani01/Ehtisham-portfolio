@@ -1,26 +1,33 @@
-import type { Metadata } from 'next'
-import { Inter, Geist_Mono } from 'next/font/google'
+import type { Metadata, Viewport } from 'next'
+import { Geist, Geist_Mono, Instrument_Serif } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import './globals.css'
 
-const inter = Inter({ 
+const geist = Geist({
   subsets: ['latin'],
-  variable: '--font-inter',
+  variable: '--font-geist',
 })
 
-const geistMono = Geist_Mono({ 
+const geistMono = Geist_Mono({
   subsets: ['latin'],
   variable: '--font-geist-mono',
 })
 
+const instrument = Instrument_Serif({
+  subsets: ['latin'],
+  weight: '400',
+  style: ['normal', 'italic'],
+  variable: '--font-instrument',
+})
+
 export const metadata: Metadata = {
-  title: 'Ehtisham Nawaz Kiani | Lead Frontend Developer',
-  description: 'Results-driven Frontend Developer with 5 years of experience specializing in crafting responsive, scalable web applications using modern JavaScript frameworks.',
-  keywords: ['Frontend Developer', 'React', 'Next.js', 'TypeScript', 'JavaScript', 'Web Developer'],
+  title: 'Ehtisham Nawaz Kiani | Senior Frontend Engineer',
+  description: 'Senior Frontend Engineer with 5+ years building responsive, scalable, high-performance web applications with React.js, Next.js and TypeScript.',
+  keywords: ['Senior Frontend Engineer', 'Frontend Developer', 'React', 'Next.js', 'TypeScript', 'JavaScript', 'Web Developer'],
   authors: [{ name: 'Ehtisham Nawaz Kiani' }],
   openGraph: {
-    title: 'Ehtisham Nawaz Kiani | Lead Frontend Developer',
-    description: 'Results-driven Frontend Developer with 5 years of experience specializing in crafting responsive, scalable web applications.',
+    title: 'Ehtisham Nawaz Kiani | Senior Frontend Engineer',
+    description: 'Senior Frontend Engineer with 5+ years building responsive, scalable web applications with React.js, Next.js and TypeScript.',
     type: 'website',
   },
   icons: {
@@ -42,13 +49,18 @@ export const metadata: Metadata = {
   },
 }
 
+// Browser UI (mobile address bar) picks up the paper colour.
+export const viewport: Viewport = {
+  themeColor: '#efeae0',
+}
+
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${geistMono.variable} bg-background`}>
+    <html lang="en" className={`${geist.variable} ${geistMono.variable} ${instrument.variable} bg-background`}>
       <body className="font-sans antialiased">
         {children}
         {process.env.NODE_ENV === 'production' && <Analytics />}

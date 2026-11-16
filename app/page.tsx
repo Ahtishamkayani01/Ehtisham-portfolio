@@ -1,28 +1,25 @@
 import { Navigation } from "@/components/navigation"
 import { Hero } from "@/components/hero"
+import { Projects } from "@/components/projects"
 import { About } from "@/components/about"
 import { Experience } from "@/components/experience"
-import { Projects } from "@/components/projects"
 import { Skills } from "@/components/skills"
 import { Contact } from "@/components/contact"
 import { Footer } from "@/components/footer"
-import { ParallaxBackground, ScrollProgress } from "@/components/scroll-effects"
 
 export default function Home() {
   return (
-    <main className="relative min-h-screen bg-background">
-      <ScrollProgress />
-      <ParallaxBackground />
-      <div className="relative z-10">
-        <Navigation />
+    <>
+      <Navigation />
+      <main id="top">
         <Hero />
+        <Projects />
         <About />
         <Experience />
-        <Projects />
         <Skills />
         <Contact />
-        <Footer />
-      </div>
-    </main>
+      </main>
+      <Footer />
+    </>
   )
 }

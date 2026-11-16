@@ -1,24 +1,20 @@
-"use client"
-
-import { motion } from "framer-motion"
-import { useInView } from "framer-motion"
-import { useRef } from "react"
-import { ExternalLink, MapPin, Calendar, Lock } from "lucide-react"
+import { ArrowUpRight, Lock } from "lucide-react"
+import { Reveal } from "@/components/reveal"
 
 const experiences = [
   {
-    title: "Senior Frontend Engineer & Team Lead",
+    title: "Senior Frontend Engineer",
     company: "PayOn",
     companyUrl: "https://payon.app/",
     location: "Remote",
     period: "Jun 2026 — Present",
     current: true,
     description: [
-      "Building the frontend of PayOn, an intelligent transactional orchestration platform redefining how dining operations manage orders, payments, and table flows",
-      "Architecting scalable React.js/Next.js interfaces that transform complex real-time transactional data into intuitive staff-facing dashboards and guest-facing payment flows",
-      "Implementing live order management, bill-splitting, and payment orchestration features across a multitenant SaaS platform serving restaurants and hospitality venues",
-      "Collaborating with backend and product teams to define API contracts and data models for real-time WebSocket-driven order and payment events",
-      "Establishing frontend standards, component architecture, and CI/CD practices for a greenfield product in a fast-moving startup environment",
+      "Building the frontend of PayOn, an intelligent transactional orchestration platform for the HoReCa (hotel, restaurant, café) industry that redefines how dining operations manage orders, payments and table flows",
+      "Architecting scalable React.js/Next.js interfaces that turn complex real-time transactional data into intuitive staff-facing dashboards and guest-facing payment flows",
+      "Implementing live order management, bill-splitting and payment orchestration across a multitenant SaaS platform serving restaurants and hospitality venues",
+      "Defining API contracts and data models with backend and product teams for real-time, WebSocket-driven order and payment events",
+      "Establishing frontend standards, component architecture and CI/CD practices for a greenfield product",
     ],
   },
   {
@@ -26,16 +22,17 @@ const experiences = [
     company: "Alpha Squad",
     companyUrl: "https://www.alphasquad.studio/",
     location: "Islamabad, Pakistan",
-    period: "Feb 2022 — May 2026",
+    period: "Feb 2023 — May 2026",
     current: false,
     description: [
-      "Led a team of front-end developers, providing mentorship, task assignments, and daily progress tracking to ensure timely project delivery",
-      "Spearheaded the development of reusable UI components, improving code maintainability by 35%",
-      "Integrated third-party API to enhance application functionality, reducing development time by 30%",
-      "Conducted code reviews and implemented best practices, resulting in an almost 60% reduction in bugs",
-      "Optimized app performance by leveraging advanced React hooks like useMemo and useCallback, leading to a reduction in load times",
-      "Collaborated with back-end teams to implement efficient API integrations, ensuring seamless data flow across applications",
-      "Facilitated daily stand-ups and sprint planning sessions",
+      "Led a team of frontend engineers: mentorship, task assignment and daily progress tracking to keep delivery on time",
+      "Spearheaded a reusable UI component library that improved maintainability and sped up feature delivery across projects",
+      "Optimized performance with advanced React patterns (useMemo, useCallback, code splitting, lazy loading), cutting load times and improving Core Web Vitals",
+      "Set up code review processes and enforced best practices with ESLint, Prettier and Husky pre-commit hooks, for a major drop in production bugs",
+      "Implemented micro-frontend architecture and monorepo setups for scalable, independently deployable frontend modules",
+      "Designed efficient RESTful API integrations with backend teams for seamless data flow across applications",
+      "Used AI developer tools (Claude Code, GitHub Copilot) for code generation, automated testing and code review to boost team productivity",
+      "Ran Agile ceremonies (daily stand-ups, sprint planning, retrospectives) to keep work aligned with goals and timelines",
     ],
   },
   {
@@ -43,13 +40,13 @@ const experiences = [
     company: "Alpha Squad",
     companyUrl: "https://www.alphasquad.studio/",
     location: "Islamabad, Pakistan",
-    period: "Nov 2021 — Feb 2022",
+    period: "Nov 2021 — Feb 2023",
     current: false,
     description: [
-      "Maintained and developed web applications using Next.js and modern CSS frameworks",
-      "Created a library of reusable React components, accelerating project timelines by 15%",
-      "Led the migration of legacy codebases to modern React practices, improving performance and reducing technical debt",
-      "Developed custom UI solutions tailored to client needs, contributing to a 20% increase in customer satisfaction",
+      "Built and maintained web applications with Next.js, React.js, TailwindCSS and Styled Components",
+      "Created a reusable React component library that standardized UI patterns and sped up project timelines across the team",
+      "Led the migration of legacy codebases to modern React (hooks, functional components), improving performance and reducing technical debt",
+      "Developed custom UI solutions tailored to client requirements, measurably improving customer satisfaction",
     ],
   },
 ]
@@ -66,125 +63,74 @@ const projects: { name: string; url?: string }[] = [
 ]
 
 export function Experience() {
-  const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, margin: "-100px" })
-
   return (
-    <section id="experience" className="py-14 md:py-20 px-6" ref={ref}>
-      <div className="max-w-4xl mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-        >
-          <div className="flex items-center gap-4 mb-12">
-            <span className="text-primary font-mono text-sm">02.</span>
-            <h2 className="text-2xl md:text-3xl font-bold text-foreground">Experience</h2>
-            <div className="flex-1 h-px bg-border" />
-          </div>
+    <section id="experience" className="px-5 md:px-10 py-12 md:py-20">
+      <div className="mx-auto max-w-[90rem]">
+        <div className="grid md:grid-cols-12 gap-6 mb-8 md:mb-12">
+          <h2 className="md:col-span-6 font-serif text-[clamp(3rem,7vw,6.5rem)] leading-[0.9] tracking-[-0.02em] text-ink">
+            Where I&apos;ve <em className="text-signal">worked</em>
+          </h2>
+        </div>
 
-          {/* Timeline */}
-          <div className="relative">
-            {/* Vertical line */}
-            <div className="absolute left-0 md:left-6 top-0 bottom-0 w-px bg-border" />
-
-            <div className="space-y-10">
-              {experiences.map((exp, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={isInView ? { opacity: 1, x: 0 } : {}}
-                  transition={{ duration: 0.5, delay: index * 0.15 }}
-                  className="relative pl-8 md:pl-16"
-                >
-                  {/* Dot */}
-                  <div className={`absolute left-[-5px] md:left-[19px] top-2 w-3 h-3 rounded-full border-2 border-primary ${exp.current ? "bg-primary" : "bg-background"}`} />
-
-                  <div className={`rounded-xl border p-6 transition-all hover:shadow-lg hover:shadow-primary/5 hover:border-primary/30 ${exp.current ? "border-primary/40 bg-primary/5" : "border-border bg-secondary/20"}`}>
-                    <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 mb-4">
-                      <div>
-                        <h3 className="text-lg font-semibold text-foreground">
-                          {exp.title}
-                        </h3>
-                        <div className="flex items-center gap-1 mt-1">
-                          {exp.companyUrl ? (
-                            <a
-                              href={exp.companyUrl}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="text-primary font-medium hover:underline flex items-center gap-1"
-                            >
-                              {exp.company}
-                              <ExternalLink className="w-3 h-3" />
-                            </a>
-                          ) : (
-                            <span className="text-primary font-medium">{exp.company}</span>
-                          )}
-                          {exp.current && (
-                            <span className="ml-2 px-2 py-0.5 text-xs font-mono rounded-full bg-primary/20 text-primary border border-primary/30">
-                              Current
-                            </span>
-                          )}
-                        </div>
-                      </div>
-                      <div className="flex flex-col items-start sm:items-end gap-1 shrink-0">
-                        <div className="flex items-center gap-1 text-xs text-muted-foreground font-mono">
-                          <Calendar className="w-3 h-3" />
-                          {exp.period}
-                        </div>
-                        <div className="flex items-center gap-1 text-xs text-muted-foreground">
-                          <MapPin className="w-3 h-3" />
-                          {exp.location}
-                        </div>
-                      </div>
-                    </div>
-
-                    <ul className="space-y-2">
-                      {exp.description.map((item, i) => (
-                        <li key={i} className="flex gap-3 text-muted-foreground text-sm leading-relaxed">
-                          <span className="text-primary mt-1 shrink-0">▹</span>
-                          <span>{item}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-
-          {/* Notable Projects */}
-          <div className="mt-12">
-            <h3 className="text-lg font-semibold text-foreground mb-6">Notable Projects at Alpha Squad</h3>
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-              {projects.map((project) =>
-                project.url ? (
-                <a
-                  key={project.name}
-                  href={project.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group flex items-center gap-2 p-3 rounded-lg bg-secondary/50 hover:bg-secondary transition-all text-sm"
-                >
-                  <span className="text-muted-foreground group-hover:text-foreground transition-colors truncate">
-                    {project.name}
-                  </span>
-                  <ExternalLink className="w-3 h-3 text-primary opacity-0 group-hover:opacity-100 transition-opacity shrink-0" />
-                </a>
-                ) : (
-                  <div
-                    key={project.name}
-                    title="Confidential client (under NDA)"
-                    className="flex items-center gap-2 p-3 rounded-lg bg-secondary/50 text-sm"
+        <ol className="border-b border-ink/15">
+          {experiences.map((exp) => (
+            <li key={exp.title + exp.period} className="border-t border-ink/15">
+              <Reveal className="grid lg:grid-cols-12 gap-x-10 gap-y-4 py-8 md:py-10">
+                <div className="lg:col-span-3">
+                  <p className="font-mono text-xs text-stone">{exp.period}</p>
+                  <p className="mt-1 font-mono text-xs text-stone">{exp.location}</p>
+                  {exp.current ? (
+                    <p className="mt-3 inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.12em] text-signal">
+                      <span className="h-1.5 w-1.5 rounded-full bg-signal" /> Current
+                    </p>
+                  ) : null}
+                </div>
+                <div className="lg:col-span-4">
+                  <h3 className="font-serif text-3xl md:text-4xl leading-[1.02] text-ink">{exp.title}</h3>
+                  <a
+                    href={exp.companyUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group mt-2 inline-flex items-center gap-1 text-ink-2"
                   >
-                    <span className="text-muted-foreground truncate">{project.name}</span>
-                    <Lock className="w-3 h-3 text-muted-foreground shrink-0" />
-                  </div>
-                )
-              )}
-            </div>
-          </div>
-        </motion.div>
+                    <span className="link-draw">{exp.company}</span>
+                    <ArrowUpRight className="h-3.5 w-3.5 text-signal transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+                  </a>
+                </div>
+                <ul className="lg:col-span-5 space-y-2.5 text-[0.95rem] leading-relaxed text-ink-2">
+                  {exp.description.map((item) => (
+                    <li key={item} className="grid grid-cols-[1rem_1fr]">
+                      <span className="text-signal">–</span>
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </Reveal>
+            </li>
+          ))}
+        </ol>
+
+        <Reveal className="mt-10 md:mt-12 grid lg:grid-cols-12 gap-4 lg:gap-6">
+          <h3 className="lg:col-span-3 font-mono text-xs uppercase tracking-[0.14em] text-stone pt-1">
+            Client sites I built at Alpha Squad
+          </h3>
+          <ul className="lg:col-span-9 flex flex-wrap gap-x-8 gap-y-3 font-serif text-2xl md:text-3xl text-ink">
+            {projects.map((project) => (
+              <li key={project.name}>
+                {project.url ? (
+                  <a href={project.url} target="_blank" rel="noopener noreferrer" className="link-draw hover:text-signal transition-colors">
+                    {project.name}
+                  </a>
+                ) : (
+                  <span className="inline-flex items-center gap-2 text-stone" title="Confidential client (under NDA)">
+                    {project.name}
+                    <Lock className="h-4 w-4" aria-label="under NDA" />
+                  </span>
+                )}
+              </li>
+            ))}
+          </ul>
+        </Reveal>
       </div>
     </section>
   )
